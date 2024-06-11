@@ -1,26 +1,47 @@
 <img src="thumbnail.png" alt="thumbnail" width="300"/>
 
-# (Replace_with_your_title) Cookbook
+# Fundamentals of Atmsopheric Modeling Cookbook
 
 [![nightly-build](https://github.com/ProjectPythia/cookbook-template/actions/workflows/nightly-build.yaml/badge.svg)](https://github.com/ProjectPythia/cookbook-template/actions/workflows/nightly-build.yaml)
 [![Binder](https://binder.projectpythia.org/badge_logo.svg)](https://binder.projectpythia.org/v2/gh/ProjectPythia/cookbook-template/main?labpath=notebooks)
 [![DOI](https://zenodo.org/badge/475509405.svg)](https://zenodo.org/badge/latestdoi/475509405)
 
-This Project Pythia Cookbook covers ... (replace `...` with the main subject of your cookbook ... e.g., _working with radar data in Python_)
+This Project Pythia Cookbook covers the fundamentals of atmospheric modeling, including topics such as:
+
+- basic conservation equations
+- approaches to finite differencing
+- numerical scheme assessments
+- numerical corrections and filtering
+- coordinate systems
+- initial/boundary conditions
+- limitations and tradeoffs in modeling
 
 ## Motivation
 
-(Add a few sentences stating why this cookbook will be useful. What skills will you, "the chef", gain once you have reached the end of the cookbook?)
+Numerical models are widely used, but gaining expertise in how they work has often been unnecessarily challenging. This cookbook hopes to address that! This is intended for a somewhat broad audience: those with at least some atmospheric dynamics knowledge, but nearly any level of programming experience (assuming a baseline level as covered in the [Pythia Foundations](https://foundations.projectpythia.org/landing-page.html)).
 
 ## Authors
 
-[First Author](@first-author), [Second Author](@second-author), etc. _Acknowledge primary content authors here_
+[JT Thielen](@jthielen), [Second Author](@second-author), etc. _Acknowledge primary content authors here_
 
 ### Contributors
 
 <a href="https://github.com/ProjectPythia/cookbook-template/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ProjectPythia/cookbook-template" />
 </a>
+
+## Resources
+
+This cookbook would not be possible without the vast collection of academic texts and prior work in atmospheric modeling. The key resources used in building this notebook include:
+
+- Textbooks
+    - [An Introduction to Numerical Modeling of the Atmosphere, by David Randall](https://hogback.atmos.colostate.edu/group/dave/at604pdf/An_Introduction_to_Numerical_Modeling_of_the_Atmosphere.pdf)
+    - [Mesoscale Meteorological Modeling, 2nd Edition, by Roger Piekle](https://www.sciencedirect.com/bookseries/international-geophysics/vol/78/suppl/C)
+- Journal Articles
+    - ...
+- Other Resources
+    - [Pet Tornado, by Brian Fiedler](https://nbviewer.org/urls/www.dropbox.com/scl/fi/74w6w8kghbjjb7rbpwimx/N130_pettornado3d.ipynb/%3Frlkey%3Dhtke7col7cvohk3jno0s2p5vb%26dl%3D1)
+
 
 ## Structure
 

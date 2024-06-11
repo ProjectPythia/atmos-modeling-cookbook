@@ -7,8 +7,8 @@
 [![DOI](https://zenodo.org/badge/475509405.svg)](https://zenodo.org/badge/latestdoi/475509405)
 
 This Project Pythia Cookbook covers the fundamentals of atmospheric modeling, including topics such as:
-basic conservation equations
 
+- basic conservation equations
 - approaches to finite differencing
 - numerical scheme assessments
 - numerical corrections and filtering

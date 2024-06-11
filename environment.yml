@@ -1,7 +1,12 @@
-name: cookbook-dev
+name: atmos-modeling-cookbook-dev
 channels:
   - conda-forge
 dependencies:
   - jupyter-book
   - jupyterlab
   - sphinx-pythia-theme
+  - numpy
+  - xarray
+  - matplotlib
+  - numba
+  - cmweather

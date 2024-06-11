@@ -41,7 +41,7 @@ This cookbook would not be possible without the vast collection of academic text
     - ...
 - Other Resources
     - [Pet Tornado, by Brian Fiedler](https://nbviewer.org/urls/www.dropbox.com/scl/fi/74w6w8kghbjjb7rbpwimx/N130_pettornado3d.ipynb/%3Frlkey%3Dhtke7col7cvohk3jno0s2p5vb%26dl%3D1)
-
+    - [Incompressible flow buoyant bubble](https://colab.research.google.com/drive/1OYqf1BYEelGhb_XIaTMnguhkRVvoDg_k?usp=sharing)
 
 ## Structure
 

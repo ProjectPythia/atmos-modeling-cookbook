@@ -20,6 +20,8 @@ This Project Pythia Cookbook covers the fundamentals of atmospheric modeling, in
 
 Numerical models are widely used, but gaining expertise in how they work has often been unnecessarily challenging. This cookbook hopes to address that! This is intended for a somewhat broad audience: those with at least some atmospheric dynamics knowledge, but nearly any level of programming experience (assuming a baseline level as covered in the [Pythia Foundations](https://foundations.projectpythia.org/landing-page.html)).
 
+TODO THIS MESSAGE WILL NEED TO BE DELETED!
+
 ## Authors
 
 [JT Thielen](@jthielen), [Second Author](@second-author), etc. _Acknowledge primary content authors here_

@@ -22,9 +22,9 @@ Numerical models are widely used, but gaining expertise in how they work has oft
 
 ## Authors
 
- - [JT Thielen](@jthielen)
- - [Sam Gardner](@wx4stg)
- - [Roger Riggin](@riotrogerriot)
+ - [JT Thielen](https://github.com/jthielen)
+ - [Sam Gardner](https://github.com/wx4stg)
+ - [Roger Riggin](https://github.com/riotrogerriot)
 
 ### Contributors
 

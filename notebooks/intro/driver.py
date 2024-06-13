@@ -189,6 +189,10 @@ class ModelDriver:
 
         self.prep_new_timestep()
 
+    def integrate(self, n_steps):
+        for _ in range(n_steps):
+            self.take_single_timestep()
+
     def current_state(self):
         """Export the prognostic variables, with coordinates, at current time."""
         data_vars = {}

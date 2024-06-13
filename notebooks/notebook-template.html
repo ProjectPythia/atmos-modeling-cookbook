@@ -47,7 +47,7 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -77,10 +77,9 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="How to Cite This Cookbook" href="how-to-cite.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="11 June 2024"/>
+    <meta name="docbuild:last-update" content="13 June 2024"/>
   </head>
   
   
@@ -233,6 +232,8 @@
         
         
         
+          
+        
         <div class="bd-sidebar-primary bd-sidebar">
           
 
@@ -368,8 +369,35 @@
 <li class="toctree-l1"><a class="reference internal" href="how-to-cite.html">How to Cite This Cookbook</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Project Pythia Notebook Template</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro/crash_course.html">Crash Course Towards Your First Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dynamical Background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="dynamics/basic_equations.html">The Basic Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamics/simplification.html">Simplifying the Basic Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamics/averaging.html">Reynolds Averaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamics/linear_model.html">Linear Model Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Methods of Solution</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numerics/spatial_finite_differencing.html">Spatial Finite Differencing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/other_spatial_techniques.html">Other Spatial Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/time_integration.html">Time Integration Approaches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/stability_analysis.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/corrections_filtering.html">Corrections and Filtering</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Coordinates and Initial/Boundary Conditions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="config/geospatial_coordinates.html">Representing Geospatial Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config/grid_staggering.html">Grid Staggering Approaches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config/vertical_coordinates.html">Vertical Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config/boundary_conditions.html">Boundary Conditions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bringing It All Together</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="summary/comparison.html">Comparison of Demonstration Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary/assessment.html">Model Assessment and Tradeoffs</a></li>
 </ul>
 
     </div>
@@ -516,8 +544,8 @@
 <section id="header-levels">
 <h6>header levels<a class="headerlink" href="#header-levels" title="Link to this heading"><i class="fas fa-link"></i></a></h6>
 <p>as well <span class="math notranslate nohighlight">\(m = a * t / h\)</span> text! Similarly, you have access to other <span class="math notranslate nohighlight">\(\LaTeX\)</span> equation <a class="reference external" href="https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Typesetting%20Equations.html"><strong>functionality</strong></a> via MathJax (demo below from link),</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8db820fb-c33e-46ab-9c66-51958793c057">
-<span class="eqno">(1)<a class="headerlink" href="#equation-8db820fb-c33e-46ab-9c66-51958793c057" title="Permalink to this equation"><i class="fas fa-link"></i></a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4608317d-679d-417e-8123-b62c058709de">
+<span class="eqno">()<a class="headerlink" href="#equation-4608317d-679d-417e-8123-b62c058709de" title="Permalink to this equation"><i class="fas fa-link"></i></a></span>\[\begin{align}
 \dot{x} &amp; = \sigma(y-x) \\
 \dot{y} &amp; = \rho x - y - xz \\
 \dot{z} &amp; = -\beta z + xy
@@ -603,15 +631,6 @@
                   <footer class="prev-next-footer">
                     
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="how-to-cite.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">How to Cite This Cookbook</p>
-      </div>
-    </a>
 </div>
                   </footer>
                 
@@ -670,9 +689,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -697,14 +716,14 @@
       
       <li><a href="https://binder.projectpythia.org/v2/gh/ProjectPythia/cookbook-template/main?urlpath=lab/tree/notebooks/notebook-template.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onBinder"
+   title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_binder.svg">
+    <img alt="Binder logo" src="../_static/images/logo_binder.svg">
   </span>
 <span class="btn__text-container">Binder</span>
 </a>
@@ -861,9 +880,9 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -898,7 +917,7 @@ By the <a href="https://projectpythia.org/">Project Pythia</a> Community
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on 11 June 2024.
+  Last updated on 13 June 2024.
   <br/>
 </p>
   </div>
@@ -952,7 +971,7 @@ By the <a href="https://projectpythia.org/">Project Pythia</a> Community
         
           By the <a href="https://projectpythia.org/">Project Pythia</a> Community.
         
-          Last updated on 11 June 2024.
+          Last updated on 13 June 2024.
         </p>
       </div>
     </div>

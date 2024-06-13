@@ -47,7 +47,7 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -75,11 +75,11 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Project Pythia Notebook Template" href="notebook-template.html" />
+    <link rel="next" title="Crash Course Towards Your First Model" href="intro/crash_course.html" />
     <link rel="prev" title="Fundamentals of Atmsopheric Modeling Cookbook" href="../README.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="11 June 2024"/>
+    <meta name="docbuild:last-update" content="13 June 2024"/>
   </head>
   
   
@@ -364,7 +364,34 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notebook-template.html">Project Pythia Notebook Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/crash_course.html">Crash Course Towards Your First Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dynamical Background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="dynamics/basic_equations.html">The Basic Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamics/simplification.html">Simplifying the Basic Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamics/averaging.html">Reynolds Averaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamics/linear_model.html">Linear Model Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Methods of Solution</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numerics/spatial_finite_differencing.html">Spatial Finite Differencing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/other_spatial_techniques.html">Other Spatial Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/time_integration.html">Time Integration Approaches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/stability_analysis.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerics/corrections_filtering.html">Corrections and Filtering</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Coordinates and Initial/Boundary Conditions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="config/geospatial_coordinates.html">Representing Geospatial Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config/grid_staggering.html">Grid Staggering Approaches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config/vertical_coordinates.html">Vertical Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config/boundary_conditions.html">Boundary Conditions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bringing It All Together</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="summary/comparison.html">Comparison of Demonstration Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary/assessment.html">Model Assessment and Tradeoffs</a></li>
 </ul>
 
     </div>
@@ -441,11 +468,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="notebook-template.html"
+       href="intro/crash_course.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Project Pythia Notebook Template</p>
+        <p class="prev-next-title">Crash Course Towards Your First Model</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -466,9 +493,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -661,7 +688,7 @@ By the <a href="https://projectpythia.org/">Project Pythia</a> Community
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on 11 June 2024.
+  Last updated on 13 June 2024.
   <br/>
 </p>
   </div>
@@ -715,7 +742,7 @@ By the <a href="https://projectpythia.org/">Project Pythia</a> Community
         
           By the <a href="https://projectpythia.org/">Project Pythia</a> Community.
         
-          Last updated on 11 June 2024.
+          Last updated on 13 June 2024.
         </p>
       </div>
     </div>

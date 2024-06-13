@@ -6,4 +6,29 @@ parts:
       - file: notebooks/how-to-cite
   - caption: Introduction
     chapters:
-      - file: notebooks/notebook-template
+      - file: notebooks/intro/initial_concepts
+      - file: notebooks/intro/crash_course
+  - caption: Dynamical Background
+    chapters:
+      - file: notebooks/dynamics/basic_equations
+      - file: notebooks/dynamics/simplification
+      - file: notebooks/dynamics/averaging
+      - file: notebooks/dynamics/linear_model
+  - caption: Methods of Solution
+    chapters:
+      - file: notebooks/numerics/spatial_finite_differencing
+      - file: notebooks/numerics/other_spatial_techniques
+      - file: notebooks/numerics/time_integration
+      - file: notebooks/numerics/stability_analysis
+      - file: notebooks/numerics/corrections_filtering
+  - caption: Coordinates and Initial/Boundary Conditions
+    chapters:
+      - file: notebooks/config/geospatial_coordinates
+      - file: notebooks/config/grid_staggering
+      - file: notebooks/config/vertical_coordinates
+      - file: notebooks/config/initial_conditions
+      - file: notebooks/config/boundary_conditions
+  - caption: Bringing It All Together
+    chapters:
+      - file: notebooks/summary/comparison
+      - file: notebooks/summary/assessment

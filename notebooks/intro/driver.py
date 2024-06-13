@@ -48,8 +48,13 @@ class ModelDriver:
         self.dx = dx
         self.dz = dz
         self.dt = dt
-        self.params.update(kwargs)
-        dtype = getattr(self, 'dtype', np.float32)
+        for k, v in kwargs.items():
+            if k.endswith('_tendency'):
+                setattr(self, k, v)
+            else:
+                self.params[k] = v
+        self.dtype = dtype = getattr(self, 'dtype', np.float32)
+        self.t_count = 0
 
         # Define arrays
         self.coords['x'] = np.arange(self.nx) * self.dx - self.nx * self.dx / 2
@@ -103,7 +108,7 @@ class ModelDriver:
 
     def take_first_timestep(self):
         # check for needed parameters and methods
-        if not getattr(self, 'c_s_sqr'):
+        if not 'c_s_sqr' in self.params:
             raise ValueError("Must set squared speed of sound prior to first timestep")
         if not (
             getattr(self, 'u_tendency')
@@ -111,6 +116,7 @@ class ModelDriver:
             and getattr(self, 'theta_p_tendency')
             and getattr(self, 'pi_tendency')
         ):
+            raise ValueError("Must set tendency equations prior to first timestep")
             
         # Increment
         self.t_count = 1
@@ -119,31 +125,31 @@ class ModelDriver:
         self.prognostic_arrays['u'][2] = (
             self.prognostic_arrays['u'][1]
             + self.dt * apply_periodic_lateral_zerograd_vertical(self.u_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['pi'], self.base_state_arrays['theta_base'], self.dx, self.dz
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['pi'][1], self.base_state_arrays['theta_base'], self.dx, self.dz
             ))
         )
         self.prognostic_arrays['w'][2] = (
             self.prognostic_arrays['w'][1]
-            + self.dt * apply_periodic_lateral_zerograd_vertical(self.w_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['pi'], self.prognostic_arrays['theta_p'],
+            + self.dt * apply_periodic_lateral_zerow_vertical(self.w_tendency(
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['pi'][1], self.prognostic_arrays['theta_p'][1],
                 self.base_state_arrays['theta_base'], self.dx, self.dz
             ))
         )
         self.prognostic_arrays['theta_p'][2] = (
             self.prognostic_arrays['theta_p'][1]
             + self.dt * apply_periodic_lateral_zerograd_vertical(self.theta_p_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['theta_p'], self.base_state_arrays['theta_base'], self.dx, self.dz
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['theta_p'][1], self.base_state_arrays['theta_base'], self.dx, self.dz
             ))
         )
         self.prognostic_arrays['pi'][2] = (
             self.prognostic_arrays['pi'][1]
             + self.dt * apply_periodic_lateral_zerograd_vertical(self.pi_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['pi'], self.base_state_arrays['theta_base'], 
-                self.base_state_arrays['rho_base'], self.c_s_sqr, self.dx, self.dz
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['pi'][1], self.base_state_arrays['theta_base'], 
+                self.base_state_arrays['rho_base'], self.params['c_s_sqr'], self.dx, self.dz
             ))
         )
 
@@ -159,31 +165,31 @@ class ModelDriver:
         self.prognostic_arrays['u'][2] = (
             self.prognostic_arrays['u'][0]
             + 2 * self.dt * apply_periodic_lateral_zerograd_vertical(self.u_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['pi'], self.base_state_arrays['theta_base'], self.dx, self.dz
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['pi'][1], self.base_state_arrays['theta_base'], self.dx, self.dz
             ))
         )
         self.prognostic_arrays['w'][2] = (
             self.prognostic_arrays['w'][0]
-            + 2 * self.dt * apply_periodic_lateral_zerograd_vertical(self.w_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['pi'], self.prognostic_arrays['theta_p'],
+            + 2 * self.dt * apply_periodic_lateral_zerow_vertical(self.w_tendency(
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['pi'][1], self.prognostic_arrays['theta_p'][1],
                 self.base_state_arrays['theta_base'], self.dx, self.dz
             ))
         )
         self.prognostic_arrays['theta_p'][2] = (
             self.prognostic_arrays['theta_p'][0]
             + 2 * self.dt * apply_periodic_lateral_zerograd_vertical(self.theta_p_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['theta_p'], self.base_state_arrays['theta_base'], self.dx, self.dz
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['theta_p'][1], self.base_state_arrays['theta_base'], self.dx, self.dz
             ))
         )
         self.prognostic_arrays['pi'][2] = (
             self.prognostic_arrays['pi'][0]
             + 2 * self.dt * apply_periodic_lateral_zerograd_vertical(self.pi_tendency(
-                self.prognostic_arrays['u'], self.prognostic_arrays['w'],
-                self.prognostic_arrays['pi'], self.base_state_arrays['theta_base'], 
-                self.base_state_arrays['rho_base'], self.c_s_sqr, self.dx, self.dz
+                self.prognostic_arrays['u'][1], self.prognostic_arrays['w'][1],
+                self.prognostic_arrays['pi'][1], self.base_state_arrays['theta_base'], 
+                self.base_state_arrays['rho_base'], self.params['c_s_sqr'], self.dx, self.dz
             ))
         )
 
@@ -203,10 +209,10 @@ class ModelDriver:
                 dims = ('t', 'z_stag', 'x')
             else:
                 dims = ('t', 'z', 'x')
-            data_vars[var] = xr.Variable(dims, self.arrays_prognostic[var][1:2].copy(), metadata_attrs[var])
-        data_vars['x'] = xr.Variable('x', self.x, metadata_attrs['x'])
-        data_vars['x_stag'] = xr.Variable('x_stag', self.x_stag, metadata_attrs['x_stag'])
-        data_vars['z'] = xr.Variable('z', self.z, metadata_attrs['z'])
-        data_vars['z_stag'] = xr.Variable('z_stag', self.z_stag, metadata_attrs['z_stag'])
+            data_vars[var] = xr.Variable(dims, self.prognostic_arrays[var][1:2].copy(), metadata_attrs[var])
+        data_vars['x'] = xr.Variable('x', self.coords['x'], metadata_attrs['x'])
+        data_vars['x_stag'] = xr.Variable('x_stag', self.coords['x_stag'], metadata_attrs['x_stag'])
+        data_vars['z'] = xr.Variable('z', self.coords['z'], metadata_attrs['z'])
+        data_vars['z_stag'] = xr.Variable('z_stag', self.coords['z_stag'], metadata_attrs['z_stag'])
         data_vars['t'] = xr.Variable('t', [self.t_count * self.dt], metadata_attrs['t'])
         return xr.Dataset(data_vars)

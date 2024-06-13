@@ -1,4 +1,8 @@
 # Helper functions for dry model
+import numpy as np
+import numba
+
+from constants import *
 
 @numba.njit()
 def nondimensional_pressure_hydrostatic(theta, z, pressure_surface):
@@ -30,14 +34,14 @@ def create_thermal_bubble(amplitude, x, z, x_radius, z_radius, x_center, z_cente
             if rad[k, i] <= 1.0:
                 theta_p[k, i] = 0.5 * amplitude * (np.cos(np.pi * rad[k, i]) + 1.0)
     # Create balanced pi, integrating downward from assumed zero at topmost level
-    pi = np.zeros_like(th)
+    pi = np.zeros_like(theta_p)
     for k in range(rad.shape[0] - 2, -1, -1):
         for i in range(rad.shape[1]):
             integrand_trapz = 0.5 * (
                 theta_p[k + 1, i] / theta_base[k + 1]**2
                 + theta_p[k, i] / theta_base[k]**2
             )
-            pi[k, i] = pi[k + 1, i] - g * (z[k + 1] - z[k]) / c_p * integrand_trapz
+            pi[k, i] = pi[k + 1, i] - gravity * (z[k + 1] - z[k]) / c_p * integrand_trapz
     # Return results
     return theta_p, pi
 

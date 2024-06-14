@@ -2,6 +2,7 @@ import panel as pn
 import holoviews as hv
 import numpy as np
 import xarray as xr
+hv.extension('bokeh')
 
 
 class ModelVis():

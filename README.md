@@ -25,12 +25,18 @@ Numerical models are widely used, but gaining expertise in how they work has oft
  - [JT Thielen](https://github.com/jthielen)
  - [Sam Gardner](https://github.com/wx4stg)
  - [Roger Riggin](https://github.com/riotrogerriot)
+ - [Justin Spotts](https://github.com/jrspotts)
+ - [Mathieu R](https://github.com/shenronUber)
 
 ### Contributors
 
 <a href="https://github.com/ProjectPythia/cookbook-template/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ProjectPythia/cookbook-template" />
 </a>
+
+Addition contributions to discussions and decisions for this notebook by:
+
+- [Rachel Smith](https://github.com/rachaellsmith)
 
 ## Resources
 

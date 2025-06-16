@@ -1,0 +1,1540 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Crash Course Towards Your First Model &#8212; Project Pythia Cookbook Template</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-pythia-theme.min.css?v=ba7ce088" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d0efeab3" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-T52X8HNYE8"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-T52X8HNYE8');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-T52X8HNYE8');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/intro/crash_course';</script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The Basic Equations" href="../dynamics/basic_equations.html" />
+    <link rel="prev" title="How to Cite This Cookbook" href="../how-to-cite.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="16 June 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div class="pst-scroll-pixel-helper"></div>
+    <header class="bd-header navbar navbar-dark navbar-expand-lg bg-dark fixed-top bd-navbar shadow" id="navbar-main">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+     
+  
+
+<a class="navbar-brand logo" href="https://projectpythia.org">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pythia_logo-white-rtext.svg" class="logo__image only-light" alt="Project Pythia Cookbook Template - Home"/>
+    <script>document.write(`<img src="../../_static/pythia_logo-white-rtext.svg" class="logo__image only-dark" alt="Project Pythia Cookbook Template - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><ul id="navbar-main-elements" class="navbar-nav">
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://projectpythia.org">Home</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://foundations.projectpythia.org">Foundations</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://cookbooks.projectpythia.org">Cookbooks</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://projectpythia.org/resource-gallery.html">Resources</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://projectpythia.org/index.html#join-us">Community</a>
+  </li>
+  
+  
+</ul></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ProjectPythia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/project_pythia" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCoZPBqJal5uKpO8ZiwzavCw" title="YouTube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-youtube-square fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">YouTube</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+        
+        
+        
+        <div class="bd-sidebar-primary bd-sidebar">
+          
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item"><ul id="navbar-main-elements" class="navbar-nav">
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://projectpythia.org">Home</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://foundations.projectpythia.org">Foundations</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://cookbooks.projectpythia.org">Cookbooks</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://projectpythia.org/resource-gallery.html">Resources</a>
+  </li>
+  
+  <li class="nav-item">
+    
+    
+    
+    <a class="nav-link nav-internal" href="https://projectpythia.org/index.html#join-us">Community</a>
+  </li>
+  
+  
+</ul></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ProjectPythia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/project_pythia" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCoZPBqJal5uKpO8ZiwzavCw" title="YouTube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-youtube-square fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">YouTube</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Fundamentals of Atmsopheric Modeling Cookbook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../how-to-cite.html">How to Cite This Cookbook</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Crash Course Towards Your First Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dynamical Background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dynamics/basic_equations.html">The Basic Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynamics/simplification.html">Simplifying the Basic Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynamics/averaging.html">Reynolds Averaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynamics/linear_model.html">Linear Model Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Methods of Solution</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../numerics/spatial_finite_differencing.html">Spatial Finite Differencing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerics/other_spatial_techniques.html">Other Spatial Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerics/time_integration.html">Time Integration Approaches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerics/stability_analysis.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numerics/corrections_filtering.html">Corrections and Filtering</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Coordinates and Initial/Boundary Conditions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../config/geospatial_coordinates.html">Representing Geospatial Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/grid_staggering.html">Grid Staggering Approaches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/vertical_coordinates.html">Vertical Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/boundary_conditions.html">Boundary Conditions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bringing It All Together</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../summary/comparison.html">Comparison of Demonstration Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../summary/assessment.html">Model Assessment and Tradeoffs</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+        </div>
+
+        
+        <main id="main-content" class="bd-main" role="main">
+          
+
+            <div class="bd-content">
+
+              <div class="bd-article-container">
+
+                
+                  
+                  
+<div id="searchbox"></div>
+                  <article class="bd-article">
+                    
+  <p><a class="reference internal" href="../../_images/basic_bubble.png"><img alt="Colormesh plot of a simple warm bubble within our model after 20 seconds of model run time" src="../../_images/basic_bubble.png" style="width: 350px;" /></a></img></p>
+<section class="tex2jax_ignore mathjax_ignore" id="crash-course-towards-your-first-model">
+<h1>Crash Course Towards Your First Model<a class="headerlink" href="#crash-course-towards-your-first-model" title="Link to this heading"><i class="fas fa-link"></i></a></h1>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<p>The following notebook serves as a crash course in constructing a simple two-dimensional mesoscale atmospheric numerical model. To begin, we select a closed set of dynamical equations, in line with Klemp and Wilhelmson (1978; hereafter KW78). Necessary assumptions are stated to simplify the equations into a managble form to maximize both computational and educational applications. Pre-defined model configurations are presented (in an attempt) to ensure numerical stability. Equations are converted into finite-differences and then broken down into Python code to explicity demonstrate the construction of a numerical model. Additional resources will be provided in the future regarding varying model configurations and utilizing increasingly more realistic and complex model equations.</p>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concepts</p></th>
+<th class="head"><p>Importance</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://foundations.projectpythia.org/core/numpy/numpy-basics.html">NumPy Basics</a></p></td>
+<td><p>Necessary</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://foundations.projectpythia.org/core/xarray/xarray-intro.html">Introduction to xarray</a></p></td>
+<td><p>Helpful</p></td>
+<td><p>Familiarity with coordinate-aware arrays</p></td>
+</tr>
+<tr class="row-even"><td><p>Dynamical Meteorology</p></td>
+<td><p>Helpful</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Time to learn</strong>: Estimated 30 to 60 minutes.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<p>Here we’ll be using a basic set of Python libraries, along with Numba for fast numerical routines. A helpful constants file is also imported, along side the code that controls the running of the model. (For those curious, these files can be viewed <a class="reference internal" href="#./constants"><span class="xref myst">here</span></a> and <a class="reference internal" href="#./constants"><span class="xref myst">here</span></a>.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numba</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">constants</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelDriver</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-equations">
+<h2>Basic Equations<a class="headerlink" href="#basic-equations" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<section id="starting-equations-from-wk78">
+<h3>Starting Equations (from WK78)<a class="headerlink" href="#starting-equations-from-wk78" title="Link to this heading"><i class="fas fa-link"></i></a></h3>
+<section id="diagnostics">
+<h4>Diagnostics<a class="headerlink" href="#diagnostics" title="Link to this heading"><i class="fas fa-link"></i></a></h4>
+<p>DEQ 1. Equation of State (2.1)
+$<span class="math notranslate nohighlight">\(
+p = \rho R_{d} T
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Pressure</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span>: Density</p></li>
+<li><p><span class="math notranslate nohighlight">\(R_{d}\)</span>: Specific gas constant for dry air</p></li>
+<li><p>$T: Temperature
+<br></p></li>
+</ul>
+<p>DEQ 2. Exner Function (2.2)
+$<span class="math notranslate nohighlight">\(
+\Pi = (\frac{p}{p_{0}})^\frac{R_{d}}{c_{p}}
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Pi\)</span>: Non-Dimensional Pressure</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Pressure</p></li>
+<li><p><span class="math notranslate nohighlight">\(p_{0}\)</span>: Reference Pressure</p></li>
+<li><p><span class="math notranslate nohighlight">\(R_{d}\)</span>: Specific gas constant for dry air</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_{p}\)</span>: Specific heat at constant pressure<br />
+<br></p></li>
+</ul>
+</section>
+<section id="prognostics">
+<h4>Prognostics<a class="headerlink" href="#prognostics" title="Link to this heading"><i class="fas fa-link"></i></a></h4>
+<p>PEQ 1-2. Momentum Equation (Zonal &amp; Vertical; 2.4)
+$<span class="math notranslate nohighlight">\(
+\underset{1}{\frac{du_{i}}{dt}}+ 
+\underset{2}{c_{p} \overline{\theta_{v}} \frac{\partial \pi}{\partial x_{i}} }=
+\underset{3}{\delta_{i_{3}}} 
+\underset{4}{g}\left[
+\underset{5}{\frac{\theta}{\overline{\theta}} - 1}+
+\underset{6}{0.61(q_{v}-\overline{q_{v}})}-
+\underset{7}{q_{c}-q_{r}}\right]-
+\underset{8}{\epsilon_{ij_{3}}}fu_{i}+ 
+\underset{9}{D_{u_i}}
+\)</span>$</p>
+<ol class="arabic simple">
+<li><p>Lagrangian of Wind</p></li>
+<li><p>PGF Term</p></li>
+<li><p>Kronecker Delta (i.e., the term that follows only appears form dimension 3, the vertical)</p></li>
+<li><p>Gravity</p></li>
+<li><p>Dry Buoyancy Contribution</p></li>
+<li><p>Moist Buoyancy Contribution</p></li>
+<li><p>Water Loading</p></li>
+<li><p>Coriolis Term</p></li>
+<li><p>Turblence Term</p></li>
+</ol>
+<p><i>Derived via Navier-Stokes equations, along with DEQ1-2, Hydrostatic Function, and Linearized Pressure Term. Tensor Notation is used for simplicity.</i>
+<br></p>
+<p>PEQ 3. Prognostic Equations (2.5)
+$<span class="math notranslate nohighlight">\(
+\underset{1}{\frac{d\phi}{dt}}=
+\underset{2}{M_{\phi}}+ 
+\underset{3}{D_{\phi}}
+\)</span>$</p>
+<ol class="arabic simple">
+<li><p>Lagrangian of Prognositc Variable</p></li>
+<li><p>Microphysical Term</p></li>
+<li><p>Turbulence Term</p></li>
+</ol>
+<p><i><span class="math notranslate nohighlight">\(\phi\)</span> is representative of either <span class="math notranslate nohighlight">\(\theta, q_{v}, q_{r},\)</span> or  <span class="math notranslate nohighlight">\(q_{c}\)</span></i>
+<br></p>
+<p>PEQ 4. Pressure Equation (2.7a)
+$<span class="math notranslate nohighlight">\(
+\underset{1}{\frac{\partial\pi}{\partial t}}+
+\underset{2}{\frac{ \overline{c}^2}{c_{p}{\overline\rho\overline{\theta_{v}^2}}}
+{\frac{\partial}{\partial x_{j}}(\overline{\rho}\overline{\theta_{v}}} u_{j})}=
+\underset{3}{f_{\pi}}
+\)</span>$</p>
+<ol class="arabic simple">
+<li><p>Eularian of Pressure</p></li>
+<li><p>Pressure Adjustment Term</p></li>
+<li><p>Non-Relevant Terms for Sound &amp; Gravity Waves (<i>See KW78 2.7b</i>)</p></li>
+</ol>
+<p><i>Derived using Compressible Continuity &amp; Thermodynamic Equations; Tensor Notation Used for Simplicity</i></p>
+</section>
+</section>
+<section id="assumptions-and-simplification">
+<h3>Assumptions and Simplification<a class="headerlink" href="#assumptions-and-simplification" title="Link to this heading"><i class="fas fa-link"></i></a></h3>
+<p>In this notebook we construct a two-dimensional, dry, and compressible atmospheric model that is broadly in line with KW78, though several assumptions and choice configurations were made to simplify the current model for computational and educational efficency.
+<br></p>
+<ol class="arabic simple">
+<li><p>We will only consider the zonal (<span class="math notranslate nohighlight">\(x\)</span>) and vertical (<span class="math notranslate nohighlight">\(z\)</span>) components.</p></li>
+<li><p>Base-state variables are a function of <span class="math notranslate nohighlight">\(z\)</span> only, denoted by <span class="math notranslate nohighlight">\(\overline{\phi}\)</span>.</p></li>
+<li><p>Water-vapor is neglected (i.e, <span class="math notranslate nohighlight">\(q_{v}, q_{r}, q_{c} = 0\)</span>), so  <span class="math notranslate nohighlight">\(T_{v} = T\)</span> and/or <span class="math notranslate nohighlight">\(\theta_{v} = \theta\)</span>.</p></li>
+<li><p>Coriolis force, microphysics, and Turbulence are also neglected(i.e., <span class="math notranslate nohighlight">\(f, M_{\theta}, D_{\theta} = 0\)</span>).</p></li>
+<li><p>As in KW78, the <span class="math notranslate nohighlight">\(f_{\pi}\)</span> term in Pressure Equation (PEQ4-3) is neglected due to its negligible influences on convective-scale processes along with sound and gravity waves.</p></li>
+<li><p>Sub-Grid Processes require parameterizations in order to achieve model closure. For example, sub-grid turbulence is first obtained using Reynolds Averaged prognostic variables (i.e., breaking up variables into mean and turbulence components), and then must be parameterized using additional assumptions (such as the flux-gradient approach).</p></li>
+<li><p>The current test case is designed to have a calm and isentropic base-state (i.e., <span class="math notranslate nohighlight">\(\frac{\partial \overline\theta}{\partial t}\)</span> and  <span class="math notranslate nohighlight">\(\overline{U} = 0\)</span>)</p></li>
+</ol>
+</section>
+<section id="final-prognostic-equations">
+<h3>Final Prognostic Equations<a class="headerlink" href="#final-prognostic-equations" title="Link to this heading"><i class="fas fa-link"></i></a></h3>
+<p>The afformentioned assumptions allowed for the derivation of the following simplified equations that serve as the foundation for the numerical model.
+<br></p>
+<p>EQ1. Zonal Momentum Equation
+$<span class="math notranslate nohighlight">\(
+\underset{1}{\frac{du}{dt}}+
+\underset{2}{c_{p} \bar{\theta} \frac{\partial \pi}{\partial x}}
+=0
+\)</span>$</p>
+<ol class="arabic simple">
+<li><p>Lagrangian Derivative of Zonal Wind</p></li>
+<li><p>PGF Term
+<br></p></li>
+</ol>
+<p>EQ2. Vertical Momentum Equation
+$<span class="math notranslate nohighlight">\(
+\underset{1}{\frac{dw}{dt}}+
+\underset{2}{c_{p} \bar{\theta} \frac{\partial \pi}{\partial z}}= 
+\underset{3}{g\left[\frac{\theta}{\bar{\theta}} - 1\right]}
+\)</span>$</p>
+<ol class="arabic simple">
+<li><p>Lagrangian Derivative of Vertical Wind</p></li>
+<li><p>PGF Term</p></li>
+<li><p>Dry Buoyancy Contribution
+<br></p></li>
+</ol>
+<p>EQ3. Prognostic Equations
+$<span class="math notranslate nohighlight">\(
+\underset{1}{\frac{d\theta}{dt}}
+=0
+\)</span>$</p>
+<ol class="arabic simple">
+<li><p>Lagrangian Derivative of Potential Temperature
+<br></p></li>
+</ol>
+<p>EQ4. Pressure Equation
+$<span class="math notranslate nohighlight">\(
+\underset{1}{\frac{\partial\pi}{\partial t}}+ 
+\underset{2}{\frac{\overline{c}^2}{c_{p}\overline{\rho}\overline{\theta}^2}[
+\frac{\partial}{\partial x}(\overline{\rho}\overline{\theta}u) +
+\frac{\partial}{\partial z}(\overline{\rho}\overline{\theta}w)]} 
+=0
+\)</span>$</p>
+<ol class="arabic simple">
+<li><p>Eularian Derivative of Pressure</p></li>
+<li><p>Pressure Adjustment Terms</p></li>
+</ol>
+</section>
+</section>
+<section id="model-configuration">
+<h2>Model Configuration<a class="headerlink" href="#model-configuration" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<p>Summary:</p>
+<ul class="simple">
+<li><p>The current test case was configured using a 32 x 20 <span class="math notranslate nohighlight">\(km^2\)</span> grid, including by 160 zonal grid points (nx) and 100 vertical grid points (nz), with both the horizontal and vertical grid-spacing (<span class="math notranslate nohighlight">\(\Delta x, \Delta z\)</span>) set to 200 m. Equations are integrated using a 0.1 s time-step (<span class="math notranslate nohighlight">\(\Delta t\)</span>).<br />
+<br></p></li>
+</ul>
+<p>Domain (32 km x 20 km):</p>
+<ul class="simple">
+<li><p>nx = 160</p></li>
+<li><p>nz = 100</p></li>
+<li><p><span class="math notranslate nohighlight">\(dx, dz = 200 m\)</span>
+<br></p></li>
+</ul>
+<p>Grid Type (Staggered Grid: C) (In/Around Box-Good for Advection)</p>
+<ul class="simple">
+<li><p>Mass: Centered (i,k)</p></li>
+<li><p>Velocity: Edges</p>
+<ul>
+<li><p>u (i +/- 1/2, k)</p></li>
+<li><p>w (i, k +/- 1/2)
+<br></p></li>
+</ul>
+</li>
+</ul>
+<p><a class="reference internal" href="../../_images/c-grid_example.svg"><img alt="Visualization of the staggered offsets of a C grid. u momentum points exist to the left and right of the mass points, and w momentum points to the top and bottom." src="../../_images/c-grid_example.svg" style="width: 500px;" /></a></img></p>
+<br>
+<p>Boundary Conditions</p>
+<ul class="simple">
+<li><p>Free-Slip Lower</p></li>
+<li><p>Rigid Top</p></li>
+<li><p>Periodic Lateral
+<br></p></li>
+</ul>
+<p>Initial Conditions</p>
+<ul class="simple">
+<li><p>P_surf = 950 hPa, with remainder of atmosphere determined via hydrostatic-balance</p></li>
+<li><p>Theta = 300 K (isentropic)</p></li>
+<li><p>Calm (u, w) = 0</p></li>
+<li><p>CI: +3 K Warm Bubble <span class="math notranslate nohighlight">\(\theta^{\prime}\)</span>, with radius of 4 <span class="math notranslate nohighlight">\(km\)</span> centered at <span class="math notranslate nohighlight">\(z = 2\)</span> <span class="math notranslate nohighlight">\(km\)</span>. <span class="math notranslate nohighlight">\(p^{\prime}\)</span> (and thus <span class="math notranslate nohighlight">\(\pi\)</span>) is adjusted accordingly.
+<br></p></li>
+</ul>
+</section>
+<section id="discritization">
+<h2>Discritization<a class="headerlink" href="#discritization" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<section id="general-approach">
+<h3>General Approach<a class="headerlink" href="#general-approach" title="Link to this heading"><i class="fas fa-link"></i></a></h3>
+<p>The following space/time discritization methods were used to convert the model equations into a code-ready format.</p>
+<p>Centered Spatial Differencing, on a C-grid:
+$<span class="math notranslate nohighlight">\(
+\frac{\partial \phi}{\partial x_i} \approx \frac{\phi_{i+\frac{1}{2}} - \phi_{i-\frac{1}{2}}}{\Delta x_i}
+\)</span>$</p>
+<p>However, due to averaging, many of the formulations became equivalent to centered differencing on a non-staggered grid:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \phi}{\partial x_i} \approx \frac{\phi_{i+1} - \phi_{i-1}}{2 \Delta x_i}
+\]</div>
+<p>Leap-Frog Time Differencing:
+$<span class="math notranslate nohighlight">\(
+\frac{\partial \phi}{\partial t} \approx \frac{\phi^{\tau+1} - \phi^{\tau-1}}{2 \Delta t}
+\)</span>$</p>
+</section>
+<section id="equation-by-equation">
+<h3>Equation-by-Equation<a class="headerlink" href="#equation-by-equation" title="Link to this heading"><i class="fas fa-link"></i></a></h3>
+<section id="u-momentum">
+<h4>u-momentum<a class="headerlink" href="#u-momentum" title="Link to this heading"><i class="fas fa-link"></i></a></h4>
+<p>Given our indexing notation, this equation is centered on the <span class="math notranslate nohighlight">\((i + \frac{1}{2}, k)\)</span> point.</p>
+<p>u advection Term:
+$<span class="math notranslate nohighlight">\(
+u\frac{\partial u}{\partial x} \cong
+\frac{1}{2\Delta x}u_{i + \frac{1}{2}, k}(u_{i + \frac{3}{2}, k}-
+u_{i - \frac{1}{2}, k})
+\)</span>$</p>
+<p>TODO: show full derivation, not just final equation</p>
+<p>To implement this in code, we must consider that the array indexes are whole numbers, and relative to the particular array. When we loop over the two spatial dimensions for <span class="math notranslate nohighlight">\(u\)</span>, this becomes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">u_tendency_u_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>w advection term:</p>
+<div class="math notranslate nohighlight">
+\[
+w\frac{\partial u}{\partial z} \cong
+\frac{1}{4}( w_{i + 1, k + \frac{1}{2}} + w_{i + 1, k - \frac{1}{2}} +
+w_{i, k + \frac{1}{2}} + w_{i, k - \frac{1}{2}})
+\frac{1}{2\Delta z}(u_{i + \frac{1}{2}, k + 1} - u_{i + \frac{1}{2}, k - 1} )
+\]</div>
+<p>TODO: show full derivation, not just final equation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">u_tendency_w_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> 
+            <span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>PGF Term:</p>
+<div class="math notranslate nohighlight">
+\[
+c_{p}\bar{\theta} \frac{\partial \pi}{\partial x} \cong 
+c_{p}\bar{\theta_{k}}\frac{1}{\Delta x}(\pi_{i+1,k}-\pi_{i,k} )
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">u_tendency_pgf_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_p</span> <span class="o">*</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">pi</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">pi</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">dx</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we can combine all these RHS terms, accounting for the negation/subtraction present in the full equation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">u_tendency</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">u_tendency_u_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">u_tendency_w_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">u_tendency_pgf_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="w-momentum">
+<h4>w momentum<a class="headerlink" href="#w-momentum" title="Link to this heading"><i class="fas fa-link"></i></a></h4>
+<p>Here, we proceed similarly</p>
+<p>u advection term:</p>
+<div class="math notranslate nohighlight">
+\[
+u\frac{\partial w}{\partial x} = 
+\frac{1}{4}(u_{i + \frac{1}{2}, k + 1} +
+u_{i + \frac{1}{2}, k} + 
+u_{i - \frac{1}{2}, k +1} +
+u_{i - \frac{1}{2}, k})
+\frac{1}{2\Delta x}(w_{i + 1, k + \frac{1}{2}} - 
+w_{i - 1, k + \frac{1}{2}})
+\]</div>
+<p>TODO: full derivation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">w_tendency_u_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>  
+            <span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>w advection term:</p>
+<div class="math notranslate nohighlight">
+\[
+w\frac{\partial w}{\partial z}=
+w_{i, k + \frac{1}{2}}
+\frac{1}{2\Delta z} (w_{i, k + \frac{3}{2}} - w_{i-1, \frac{1}{2}})
+\]</div>
+<p>TODO: full derivation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">w_tendency_w_advection_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>PGF term:</p>
+<div class="math notranslate nohighlight">
+\[ 
+c_{p}\overline{\theta}\frac{\partial \pi}{\partial z} =
+c_{p} \frac{1}{2}( \overline{\theta}_{k+1} + \overline{\theta}_{k})
+\frac{1}{\Delta z}(\pi_{i, k+1} - \pi_{i,k})
+\]</div>
+<p>TODO: full derivation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">w_tendency_pgf_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_p</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">theta_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">pi</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">pi</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">dz</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Buoyancy Term:</p>
+<div class="math notranslate nohighlight">
+\[
+  g\left[\frac{\theta^{\prime}}{\overline{\theta}}\right] =
+  g\left[\frac{\theta_{i, k+1}^{\prime} + \theta_{i, k}^{\prime}}{\overline{\theta}_{k+1}, \overline{\theta}_{k}}\right]
+\]</div>
+<p>TODO: full derivation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">w_tendency_buoyancy_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">term</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">gravity</span> <span class="o">*</span> <span class="p">(</span><span class="n">theta_p</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta_p</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">theta_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> 
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Which, in combination, becomes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">w_tendency</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">w_tendency_u_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="o">-</span> <span class="n">w_tendency_w_advection_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+        <span class="o">-</span> <span class="n">w_tendency_pgf_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">w_tendency_buoyancy_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="theta-tendency-equation">
+<h4>Theta tendency equation<a class="headerlink" href="#theta-tendency-equation" title="Link to this heading"><i class="fas fa-link"></i></a></h4>
+<p>u advection term:</p>
+<div class="math notranslate nohighlight">
+\[
+       u\frac{\partial \theta^{\prime}}{\partial x} = 
+       \frac{1}{2}(u_{i+\frac{1}{2}, k} + u_{i-\frac{1}{2}})
+       \frac{1}{2\Delta x}(\theta_{i+1,k}^{\prime}-\theta_{i-1,k}^{\prime})
+     \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">theta_p_tendency_u_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">theta_p</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">theta_p</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>w advection of theta perturbation:</p>
+<div class="math notranslate nohighlight">
+\[
+       w\frac{\partial \theta^{\prime}}{\partial z} = 
+       \frac{1}{2}(w_{i+\frac{1}{2}, k} + w_{i-\frac{1}{2}})
+       \frac{1}{2\Delta z}(\theta_{i,k+1}^{\prime}-\theta_{i,k-1}^{\prime})
+     \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">theta_p_tendency_w_advection_of_perturbation_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">theta_p</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">theta_p</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>w advection of theta base state:</p>
+<div class="math notranslate nohighlight">
+\[
+   w\frac{\partial \overline{\theta}}{\partial z} = 
+   \frac{1}{2}(w_{i, k+\frac{1}{2}} + w_{i,k\frac{1}{2}})
+   \frac{1}{2\Delta z}(\overline{\theta}_{k+1}-\overline\theta_{k-1})
+ \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">theta_p_tendency_w_advection_of_base_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">theta_base</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Combining, becomes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">theta_p_tendency</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">theta_p_tendency_u_advection_term</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">theta_p_tendency_w_advection_of_perturbation_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">theta_p_tendency_w_advection_of_base_term</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">theta_p</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="non-dimensional-pressure-tendency">
+<h4>Non-dimensional Pressure Tendency<a class="headerlink" href="#non-dimensional-pressure-tendency" title="Link to this heading"><i class="fas fa-link"></i></a></h4>
+<p>Based on the treatment by KW78, this equation expressed with a leading factor (which has <span class="math notranslate nohighlight">\(k\)</span>-index dependence) and two interior terms (which have finite differences). We express these together as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+-\frac{\bar{c}^2}{c_p \bar{\rho}_k \bar{\theta}_k^2}\bigg[ &amp;\bar{\rho}_k \bar{\theta}_k \frac{1}{\Delta x} \left(u_{i + \frac{1}{2}, k} - u_{i - \frac{1}{2}, k}\right) \\
+\quad\quad &amp;+ \frac{1}{2}\left(w_{i, k+\frac{1}{2}} + w_{i, k-\frac{1}{2}}\right) \frac{1}{2\Delta z} \left(\bar{\rho}_{k+1} \bar{\theta}_{k+1} - \bar{\rho}_{k-1} \bar{\theta}_{k-1}\right) \\
+\quad\quad &amp;+ \bar{\rho}_k \bar{\theta}_k \frac{1}{\Delta z} \left(w_{i , k+ \frac{1}{2}} - w_{i, k - \frac{1}{2}}\right)\bigg]
+\end{align*}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pi_tendency</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">theta_base</span><span class="p">,</span> <span class="n">rho_base</span><span class="p">,</span> <span class="n">c_s_sqr</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">term</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">c_s_sqr</span> <span class="o">/</span> <span class="p">(</span><span class="n">c_p</span> <span class="o">*</span> <span class="n">rho_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="o">*</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="n">rho_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">dx</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="p">(</span>
+                        <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+                        <span class="o">*</span> <span class="p">(</span><span class="n">rho_base</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">rho_base</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="n">rho_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">theta_base</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">dz</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">term</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="running-the-model">
+<h2>Running the Model<a class="headerlink" href="#running-the-model" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<p>We are now ready to set up and run the model!</p>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading"><i class="fas fa-link"></i></a></h3>
+<p>To start, we initialize the model driver class (see the <a class="reference internal" href="#./driver"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">driver.py</span></code></span></a> if interested in the details) using our aforementioned model options, and plugging in our tendency equations written above). We then add in the initial base state and perturbations, so that the model has something to simulate. Finally, we export the initial state to inspect later:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ModelDriver</span><span class="p">(</span>
+    <span class="n">nx</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">nz</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">200.</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">200.</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">c_s_sqr</span><span class="o">=</span><span class="mf">50.0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">u_tendency</span><span class="o">=</span><span class="n">u_tendency</span><span class="p">,</span> <span class="n">w_tendency</span><span class="o">=</span><span class="n">w_tendency</span><span class="p">,</span> <span class="n">theta_p_tendency</span><span class="o">=</span><span class="n">theta_p_tendency</span><span class="p">,</span> <span class="n">pi_tendency</span><span class="o">=</span><span class="n">pi_tendency</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">initialize_isentropic_base_state</span><span class="p">(</span><span class="mf">300.</span><span class="p">,</span> <span class="mf">9.5e4</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">initialize_warm_bubble</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0e3</span><span class="p">,</span> <span class="mf">4.0e3</span><span class="p">,</span> <span class="mf">2.0e3</span><span class="p">)</span>
+
+<span class="c1"># Start saving results</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">current_state</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can quickly preview what this initial warm bubble looks like using xarray:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;theta_p&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f0443355fd0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/66de6af69bfe5c7395f448830710fbc5e9a07f71bd26d71525ed6480d78c3fa1.png" src="../../_images/66de6af69bfe5c7395f448830710fbc5e9a07f71bd26d71525ed6480d78c3fa1.png" />
+</div>
+</div>
+<section id="running-the-model-forward-in-time">
+<h4>Running the model forward in time<a class="headerlink" href="#running-the-model-forward-in-time" title="Link to this heading"><i class="fas fa-link"></i></a></h4>
+<p>Now, we can actually start integrating in time. At the first timestep, we don’t have the data to use leapfrog integration, so we need a special first timestep that does an forward-in-time approach (also known as Euler forward differencing):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Integrate the model, saving after desired timestep counts</span>
+<span class="n">model</span><span class="o">.</span><span class="n">take_first_timestep</span><span class="p">()</span>
+<span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">current_state</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>TODO: fix/adjust approach later</p>
+<p>Now, the model (as written above) has been found to have a numerical instability that causes the model to “explode” within 30 seconds of simulated time. To showcase how such a model can go wrong, we save results every timestep, as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">current_state</span><span class="p">())</span>
+
+<span class="c1"># Merge results</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>TODO: add holoviews visualization of “what’s going wrong”</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<p>The preceding cookbook provided a crash-course on the development of a 2-D Mesoscale Numerical Model, starting with the basic dynamical equations through the conversion to computer code and ultimately model integration. This pre-configured “test-case” is intended to be used for educational purposes only. Though note that all the assumptions/configurations used herein may not be applicable for other situations. Future notebooks are to be included, demonstrating how various configurations (i.e., equation simplifications, discritization schemes, boundary conditions, grid styles, and spatiotemporal resolutions) all influences the performance and accuracy of the resultant output. Additionally, we plan to include explicit walk-throughs regarding stability analyses, corrections, and filtering techniques. Check-in regularly for updates to this Cookbook.</p>
+<section id="whats-next">
+<h3>What’s next?<a class="headerlink" href="#whats-next" title="Link to this heading"><i class="fas fa-link"></i></a></h3>
+<p>TODO: reference later portions</p>
+<!--Let Jupyter book tie this to the next (sequential) piece of content that people could move on to down below and in the sidebar. However, if this page uniquely enables your reader to tackle other nonsequential concepts throughout this book, or even external content, link to it here!--></section>
+</section>
+<section id="resources-and-references">
+<h2>Resources and references<a class="headerlink" href="#resources-and-references" title="Link to this heading"><i class="fas fa-link"></i></a></h2>
+<p>TODO: add these</p>
+<!--
+Finally, be rigorous in your citations and references as necessary. Give credit where credit is due. Also, feel free to link to relevant external material, further reading, documentation, etc. Then you're done! Give yourself a quick review, a high five, and send us a pull request. A few final notes:
+ - `Kernel > Restart Kernel and Run All Cells...` to confirm that your notebook will cleanly run from start to finish
+ - `Kernel > Restart Kernel and Clear All Outputs...` before committing your notebook, our machines will do the heavy lifting
+ - Take credit! Provide author contact information if you'd like; if so, consider adding information here at the bottom of your notebook
+ - Give credit! Attribute appropriate authorship for referenced code, information, images, etc.
+ - Only include what you're legally allowed: **no copyright infringement or plagiarism**
+ 
+Thank you for your contribution!
+--></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/intro"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                  </article>
+
+                
+                
+
+                
+                
+                  <footer class="prev-next-footer">
+                    
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../how-to-cite.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">How to Cite This Cookbook</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../dynamics/basic_equations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Basic Equations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                  </footer>
+                
+              </div>
+
+              
+              
+                
+                  <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-equations">Basic Equations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#starting-equations-from-wk78">Starting Equations (from WK78)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">Diagnostics</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prognostics">Prognostics</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions-and-simplification">Assumptions and Simplification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-prognostic-equations">Final Prognostic Equations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-configuration">Model Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discritization">Discritization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-approach">General Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equation-by-equation">Equation-by-Equation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#u-momentum">u-momentum</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#w-momentum">w momentum</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theta-tendency-equation">Theta tendency equation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#non-dimensional-pressure-tendency">Non-dimensional Pressure Tendency</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-model">Running the Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-model-forward-in-time">Running the model forward in time</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-next">What’s next?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-references">Resources and references</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+                
+              
+
+
+                
+                <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://binder.projectpythia.org/v2/gh/ProjectPythia/cookbook-template/main?urlpath=lab/tree/notebooks/intro/crash_course.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ProjectPythia/cookbook-template" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ProjectPythia/cookbook-template/edit/main/notebooks/intro/crash_course.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ProjectPythia/cookbook-template/issues/new?title=Issue%20on%20page%20%2Fnotebooks/intro/crash_course.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/intro/crash_course.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+            </div>
+
+            <footer class="bd-footer-content">
+              
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By the <a href="https://projectpythia.org/">Project Pythia</a> Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on 16 June 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+            </footer>
+
+        </main>
+    </div>
+  </div>
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+     
+  
+  
+  
+  
+    <div class="footer-items__start">
+      <div class="container-fluid m-0 p-0">
+      
+        <div class="footer-item">
+  <div class="container-fluid footer-logos">
+    <div class="container-xl">
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="d-flex col-lg-3 col-md-4 col-sm-6 p-2 mx-auto">
+          <img alt="NCAR" src="../../_images/NSF-NCAR_Lockup-UCAR-Dark_102523.svg" style="width: 100%">
+        </div>
+        <div class="d-flex col-lg-3 col-md-4 col-sm-6 p-2 mx-auto">
+          <img alt="Unidata" src="../../_images/Unidata_logo_horizontal_1200x300.svg" style="width: 100%">
+        </div>
+        <div class="d-flex col-lg-3 col-md-4 col-sm-6 p-2 mx-auto">
+          <img alt="UAlbany" src="../../_images/UAlbany-A2-logo-purple-gold.svg" style="width: 100%">
+        </div>
+      </div>
+    </div>
+  </div></div>
+      
+        <div class="footer-item">  <div class="container-fluid footer-info">
+    <div class="container-xl">
+      <div class="d-flex justify-content-center">
+        <p class="py-1 m-0">
+            &copy;&nbsp;2024.
+        
+          By the <a href="https://projectpythia.org/">Project Pythia</a> Community.
+        
+          Last updated on 16 June 2025.
+        </p>
+      </div>
+    </div>
+  </div></div>
+      
+        <div class="footer-item"><div class="container-fluid footer-extra">
+  <div class="container">
+    <center>
+      Theme by <a href="https://projectpythia.org">Project Pythia</a>. All code
+      in Pythia Cookbooks is licensed under
+      <a href="https://opensource.org/license/apache-2-0">Apache 2.0</a>. All
+      other non-code content is licensed under
+      <a href="https://creativecommons.org/licenses/by/4.0/">
+        Creative Commons BY 4.0 (CC BY 4.0)</a
+      >.
+    </center>
+    <br /><br />
+    <div class="row">
+      <p class="m-0">
+        <img
+          src="../../_static/footer-logo-nsf.png"
+          style="float: left; width: 60px; height: 60px; margin-right: 1rem"
+        />
+        This material is based upon work supported by the National Science
+        Foundation under Grant Nos. 2026863 and 2026899. Any opinions, findings,
+        and conclusions or recommendations expressed in this material are those
+        of the author(s) and do not necessarily reflect the views of the
+        National Science Foundation.
+      </p>
+    </div>
+  </div>
+</div></div>
+      
+      </div>
+    </div>
+  
+
+  </footer>
+  </body>
+</html>

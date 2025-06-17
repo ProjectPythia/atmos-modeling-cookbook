@@ -1,0 +1,51 @@
+version: 1
+extends:
+  - https://raw.githubusercontent.com/projectpythia-mystmd/pythia-config/main/pythia.yml
+project:
+  title: Atmos-modeling Cookbook
+  authors:
+    - name: Project Pythia Community
+      url: https://projectpythia.org/
+  github: https://github.com/projectpythia-mystmd/atmos-modeling-cookbook
+  copyright: '2024'
+  toc:
+    - file: README.md
+    - title: Preamble
+      children:
+        - file: notebooks/how-to-cite.md
+    - title: Introduction
+      children:
+        - file: notebooks/intro/initial_concepts
+        - file: notebooks/intro/crash_course.ipynb
+    - title: Dynamical Background
+      children:
+        - file: notebooks/dynamics/basic_equations.md
+        - file: notebooks/dynamics/simplification.md
+        - file: notebooks/dynamics/averaging.md
+        - file: notebooks/dynamics/linear_model.ipynb
+    - title: Methods of Solution
+      children:
+        - file: notebooks/numerics/spatial_finite_differencing.md
+        - file: notebooks/numerics/other_spatial_techniques.md
+        - file: notebooks/numerics/time_integration.ipynb
+        - file: notebooks/numerics/stability_analysis.ipynb
+        - file: notebooks/numerics/corrections_filtering.ipynb
+    - title: Coordinates and Initial/Boundary Conditions
+      children:
+        - file: notebooks/config/geospatial_coordinates.ipynb
+        - file: notebooks/config/grid_staggering.ipynb
+        - file: notebooks/config/vertical_coordinates.ipynb
+        - file: notebooks/config/initial_conditions
+        - file: notebooks/config/boundary_conditions.ipynb
+    - title: Bringing It All Together
+      children:
+        - file: notebooks/summary/comparison.ipynb
+        - file: notebooks/summary/assessment.md
+  jupyter:
+      binder:
+        repo: projectpythia-mystmd/atmos-modeling-cookbook
+site:
+  options:
+    logo: notebooks/images/logos/pythia_logo-white-rtext.svg
+    folders: true
+  template: book-theme

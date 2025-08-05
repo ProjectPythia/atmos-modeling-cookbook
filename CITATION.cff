@@ -42,6 +42,11 @@ authors:
     orcid: https://orcid.org/0000-0001-8155-8038
     website: https://github.com/kmpaul
     affiliation: NVIDIA
+  - family-names: Rivera Tello
+    given-names: Gerardo
+    orcid: https://orcid.org/0000-0002-3131-8615
+    website: https://github.com/griverat
+    affiliation: University of Hawaiʻi at Mānoa
   - name: "Cookbook Template contributors" # use the 'name' field to acknowledge organizations
     website: "https://github.com/ProjectPythia/cookbook-template/graphs/contributors"
 title: "Cookbook Template"

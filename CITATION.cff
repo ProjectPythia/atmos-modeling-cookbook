@@ -2,6 +2,11 @@ cff-version: 1.2.0
 message: "If you use this cookbook, please cite it as below."
 authors:
   # add additional entries for each author -- see https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
+  - family-names: Keshri
+    given-names: Shreya
+    orcid: https://orcid.org/0009-0008-3236-0074 
+    website: https://github.com/ShreyaK12345
+    affiliation: The City College of New York (City University of New York) # optional
   - family-names: Rivera Tello
     given-names: Gerardo
     orcid: https://orcid.org/0000-0002-3131-8615

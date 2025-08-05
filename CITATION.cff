@@ -1,10 +1,23 @@
 cff-version: 1.2.0
 message: "If you use this cookbook, please cite it as below."
 authors:
+  # add additional entries for each author -- see https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
   - family-names: Rivera Tello
     given-names: Gerardo
     orcid: https://orcid.org/0000-0002-3131-8615
     website: https://github.com/griverat
     affiliation: University of Hawaiʻi at Mānoa
-title: "Cookbook Template"
-abstract: "A sample cookbook description."
+  - family-names: Tyle
+    given-names: Kevin
+    orcid: https://orcid.org/0000-0001-5249-9665
+    website: https://github.com/ktyle
+    affiliation: University at Albany (State University of New York)
+  - family-names: Thielen
+    given-names: JT
+    orcid: https://orcid.org/0000-0002-5479-0189
+    website: https://github.com/jthielen
+    affiliation: Colorado State University
+  - name: "Cookbook Template contributors" # use the 'name' field to acknowledge organizations
+    website: "https://github.com/ProjectPythia/cookbook-template/graphs/contributors"
+title: "Atmospheric Modeling Cookbook Collaborators"
+abstract: "Add a description when done!"

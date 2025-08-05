@@ -2,6 +2,11 @@ cff-version: 1.2.0
 message: "If you use this cookbook, please cite it as below."
 authors:
   # add additional entries for each author -- see https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
+  - family-names: Freeman
+    given-names: Brittany
+    orcid: https://orcid.org/0009-0006-2806-1149
+    website: https://github.com/bl-freeman
+    affiliation: University at Albany (State University of New York)
   - family-names: Tyle
     given-names: Kevin
     orcid: https://orcid.org/0000-0001-5249-9665

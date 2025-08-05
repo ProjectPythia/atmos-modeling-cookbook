@@ -7,7 +7,27 @@ authors:
     orcid: https://orcid.org/0009-0006-2290-4942 # optional
     website: https://github.com/lwu127 # optional
     affiliation: SUNY-ESF # optional
+  - family-names: Samantaray
+    given-names: Snigdha
+    orcid: https://orcid.org/0009-0009-1617-1270
+    website: https://github.com/snigsam
+    affiliation: University of Miami
+  - family-names: Freeman
+    given-names: Brittany
+    orcid: https://orcid.org/0009-0006-2806-1149
+    website: https://github.com/bl-freeman
+    affiliation: University at Albany (State University of New York)
+  - family-names: Tyle
+    given-names: Kevin
+    orcid: https://orcid.org/0000-0001-5249-9665
+    website: https://github.com/ktyle
+    affiliation: University at Albany (State University of New York)
+  - family-names: Thielen
+    given-names: JT
+    orcid: https://orcid.org/0000-0002-5479-0189
+    website: https://github.com/jthielen
+    affiliation: Colorado State University
   - name: "Cookbook Template contributors" # use the 'name' field to acknowledge organizations
     website: "https://github.com/ProjectPythia/cookbook-template/graphs/contributors"
-title: "Cookbook Template"
-abstract: "A sample cookbook description."
+title: "Atmospheric Modeling Cookbook Collaborators"
+abstract: "Add a description when done!"

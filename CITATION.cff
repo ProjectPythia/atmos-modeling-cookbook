@@ -7,6 +7,11 @@ authors:
     orcid: https://orcid.org/0000-0001-5249-9665
     website: https://github.com/ktyle
     affiliation: University at Albany (State University of New York)
+  - family-names: Thielen
+    given-names: JT
+    orcid: https://orcid.org/0000-0002-5479-0189
+    website: https://github.com/jthielen
+    affiliation: Colorado State University
   - name: "Cookbook Template contributors" # use the 'name' field to acknowledge organizations
     website: "https://github.com/ProjectPythia/cookbook-template/graphs/contributors"
 title: "Atmospheric Modeling Cookbook Collaborators"

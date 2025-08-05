@@ -2,6 +2,7 @@ name: atmos-modeling-cookbook-dev
 channels:
   - conda-forge
 dependencies:
+  - mystmd
   - jupyter-book
   - jupyterlab
   - numpy
@@ -9,6 +10,5 @@ dependencies:
   - matplotlib
   - numba
   - cmweather
-  - mystmd
   - holoviews
   - panel

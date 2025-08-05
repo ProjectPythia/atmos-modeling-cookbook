@@ -4,10 +4,11 @@ channels:
 dependencies:
   - jupyter-book
   - jupyterlab
-  - sphinx-pythia-theme
   - numpy
   - xarray
   - matplotlib
   - numba
   - cmweather
   - mystmd
+  - holoviews
+  - panel

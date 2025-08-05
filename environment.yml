@@ -10,6 +10,5 @@ dependencies:
   - matplotlib
   - numba
   - cmweather
-  - bokeh
   - holoviews
   - panel

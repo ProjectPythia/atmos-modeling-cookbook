@@ -1,3 +1,0 @@
-# Reynolds Averaging
-
-...

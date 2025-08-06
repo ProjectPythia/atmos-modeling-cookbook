@@ -1,0 +1,3 @@
+# Simplifying the Basic Equations
+
+...

@@ -2,6 +2,8 @@
 
 ### Starting Equations (from WK78)
 
+
+
 #### Diagnostics
     
 DEQ 1. Equation of State (2.1) 

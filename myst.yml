@@ -17,6 +17,7 @@ project:
       children:
         - file: notebooks/intro/initial_concepts
         - file: notebooks/intro/crash_course.ipynb
+        - file: notebooks/intro/matsuno-gill.ipynb
     - title: Dynamical Background
       children:
         - file: notebooks/dynamics/basic_equations.md

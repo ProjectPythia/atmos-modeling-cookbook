@@ -8,8 +8,7 @@ In general, numerical modeling involves solving a set mathematical equations tha
 
 Now that you know what an atmospheric model is and how it uses numerical integration to make its projections, we're ready to discuss the process of building your own!
 
-## Key Steps in Numerical Modeling:
-
+## What are the Key Steps of Numerical Modeling?
 
 
 - Formulate the Equations: Start with the fundamental equations that describe atmospheric dynamics. These include the Navier-Stokes equations, thermodynamic equations, and continuity equations.
@@ -21,6 +20,21 @@ Now that you know what an atmospheric model is and how it uses numerical integra
 - Solve the Equations: Use numerical methods to solve the discretized equations. This requires implementing algorithms to integrate the equations forward in time and space.
 
 - Analyze the Results: Interpret the output from the numerical model to understand atmospheric behavior and validate the model against observations.
+
+## What Meteorological Information Will My Model Use?
+
+Atmospheric models range from huge simulations of the entire Earth as a coupled system, considering the atmosphere, ocean, land, and ice and how they interact with one another, to those that focus on the microscale processes that can't be seen and are challenging to understand (think: cloud microphysics, radiation, turbulent processes), and everything in between! Because the applicable variables will change depending on the model's purpose, there's no catch-all list of what information you'll be giving the model to work with. That said, there are many that are essential to the function of all parts of the atmosphere that you should anticipate working with:
+
+- Temperature ($T$): the thermal energy (i.e. hotness or coldness) of the air, measured in Kelvins (K)
+- Pressure ($p$): the total force exerted by a parcel of air, measured in Pascals (Pa)
+- Density ($\rho$): the total mass per unit volume of air, measured in ${\frac{kg{m_3}}$
+- Position ($x$, $y$, $z$): 
+- Directional wind speed ($u$, $v$, $w$):
+
+There are also many constants that you will likely encounter in an atmospheric model, like the gas constant and specific heat. Many more variables exist that are essential to many existing models used for the weather predictions you receive each day, but for our purposes, we'll be focusing mostly on those listed above.
+
+## What Else Should I Expect From This Cookbook?
+
 
 
 ## Meteorological Concepts (needs adjusting)

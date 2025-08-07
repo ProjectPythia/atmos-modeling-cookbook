@@ -1,4 +1,4 @@
-# Fundamentals of Atmsopheric Modeling Cookbook
+# Fundamentals of Atmospheric Modeling Cookbook
 
 <img src="thumbnail.png" alt="thumbnail" width="300"/>
 
@@ -21,17 +21,22 @@ This Project Pythia Cookbook covers the fundamentals of atmospheric modeling, in
 Numerical models are widely used, but gaining expertise in how they work has often been unnecessarily challenging. This cookbook hopes to address that! This is intended for a somewhat broad audience: those with at least some atmospheric dynamics knowledge, but nearly any level of programming experience (assuming a baseline level as covered in the [Pythia Foundations](https://foundations.projectpythia.org/landing-page.html)).
 
 ## Authors
-
- - [JT Thielen](https://github.com/jthielen)
- - [Sam Gardner](https://github.com/wx4stg)
- - [Roger Riggin](https://github.com/riotrogerriot)
- - [Justin Spotts](https://github.com/jrspotts)
- - [Mathieu R](https://github.com/shenronUber)
+- [JT Thielen](https://github.com/jthielen)
+- [Sam Gardner](https://github.com/wx4stg)
+- [Roger Riggin](https://github.com/riotrogerriot)
+- [Justin Spotts](https://github.com/jrspotts)
+- [Mathieu R](https://github.com/shenronUber)
+- [Kevin Tyle](https://github.com/ktyle)
+- [Brittany Freeman](https://github.com/bl-freeman)
+- [Snigdha Samantaray](https://github.com/snigsam)
+- [Lin Wu](https://github.com/lwu127)
+- [Shreya Keshri](https://github.com/ShreyaK12345)
+- [Gerardo Rivera Tello](https://github.com/griverat)
 
 ### Contributors
 
-<a href="https://github.com/ProjectPythia/cookbook-template/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ProjectPythia/cookbook-template" />
+<a href="https://github.com/ProjectPythia/atmos-modeling-cookbook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ProjectPythia/atmos-modeling-cookbook" />
 </a>
 
 Addition contributions to discussions and decisions for this notebook by:
@@ -45,6 +50,7 @@ This cookbook would not be possible without the vast collection of academic text
 - Textbooks
     - [An Introduction to Numerical Modeling of the Atmosphere, by David Randall](https://hogback.atmos.colostate.edu/group/dave/at604pdf/An_Introduction_to_Numerical_Modeling_of_the_Atmosphere.pdf)
     - [Mesoscale Meteorological Modeling, 2nd Edition, by Roger Piekle](https://www.sciencedirect.com/bookseries/international-geophysics/vol/78/suppl/C)
+    - [Introduction to geophysical fluid dynamics: Physical and numerical aspects](https://www.sciencedirect.com/bookseries/international-geophysics/vol/101)
 - Journal Articles
     - ...
 - Other Resources

@@ -40,6 +40,7 @@ This cookbook would not be possible without the vast collection of academic text
 - Textbooks
     - [An Introduction to Numerical Modeling of the Atmosphere, by David Randall](https://hogback.atmos.colostate.edu/group/dave/at604pdf/An_Introduction_to_Numerical_Modeling_of_the_Atmosphere.pdf)
     - [Mesoscale Meteorological Modeling, 2nd Edition, by Roger Piekle](https://www.sciencedirect.com/bookseries/international-geophysics/vol/78/suppl/C)
+    - [Introduction to geophysical fluid dynamics: Physical and numerical aspects](https://www.sciencedirect.com/bookseries/international-geophysics/vol/101)
 - Journal Articles
     - ...
 - Other Resources

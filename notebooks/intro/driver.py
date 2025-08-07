@@ -70,6 +70,37 @@ class ModelDriver:
         self.base_state_arrays['PI_base'] = np.zeros(nz, dtype=dtype)
         self.base_state_arrays['rho_base'] = np.zeros(nz, dtype=dtype)
         ## Todo do we need others??
+    # # --- add inside class ModelDriver ------------------------------------------ #
+
+    # # ------------------------------------------------------------------
+    # #  Utility: compute CFL numbers for the *current* prognostic fields
+    # # ------------------------------------------------------------------
+    # def compute_cfl(self, include_acoustic=True):
+    #     #Return horizontal, vertical, and (optionally) acoustic CFL numbers
+    #     # --- face-centred extrema for the advective criteria ------------------
+    #     umax = np.max(np.abs(self.prognostic_arrays['u'][1]))      # u on x-faces
+    #     wmax = np.max(np.abs(self.prognostic_arrays['w'][1]))      # w on z-faces
+    
+    #     C_x = umax * self.dt / self.dx
+    #     C_z = wmax * self.dt / self.dz
+    #     cfl = {'C_x': C_x, 'C_z': C_z}
+    
+    #     # --- collocate u and w before forming the acoustic speed -------------
+    #     if include_acoustic and 'c_s_sqr' in self.params:
+    #         u_face = self.prognostic_arrays['u'][1]                # (nz, nx+1)
+    #         w_face = self.prognostic_arrays['w'][1]                # (nz+1, nx)
+    
+    #         # average to (nz, nx) cell centres
+    #         u_c = 0.5 * (u_face[:, :-1] + u_face[:, 1:])
+    #         w_c = 0.5 * (w_face[:-1, :] + w_face[1:, :])
+    
+    #         umag_max = np.max(np.sqrt(u_c**2 + w_c**2))
+    #         c_s      = np.sqrt(self.params['c_s_sqr'])
+    
+    #         C_a = (umag_max + c_s) * self.dt / min(self.dx, self.dz)
+    #         cfl['C_a'] = C_a
+    
+    #     return cfl
 
     def initialize_isentropic_base_state(self, theta, pressure_surface):
         # Set uniform potential temperature

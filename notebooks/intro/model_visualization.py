@@ -61,3 +61,79 @@ class ModelVis:
 
         maxes = ds_selected.w.max(dim=['z_stag', 'x'])
         return hv.Curve((ds_selected.t.data, maxes), kdims=['time'], vdims=['max w velocity']).opts(title='Maximum w wind at time')
+
+
+def quiver_theta_panel(ds, var='theta_p', stride=8, cmap='turbo',
+                       width=900, height=520, robust=True, pct=(1, 99)):
+    """
+    Single interactive plot: background = `var` (blue→red), overlay = quiver(u,w).
+    Colorbar is constant across time (global vmin/vmax or robust percentiles).
+
+    Parameters
+    ----------
+    ds : xarray.Dataset  (expects: t, x, z, x_stag, z_stag, u, w, and `var`)
+    var : str            variable to color by (default 'theta_p')
+    stride : int         arrow thinning factor (bigger = fewer arrows)
+    cmap : str           e.g., 'turbo' (low=blue → high=red), 'jet', etc.
+    robust : bool        use percentiles for clim to avoid outliers
+    pct : (low, high)    percentile pair if robust=True
+    """
+
+    # ---- constant color scale (global over the dataset) -------------------
+    v_all = np.asarray(ds[var].values)
+    v_all = v_all[np.isfinite(v_all)]
+    if v_all.size == 0:
+        vmin, vmax = -1.0, 1.0
+    elif robust:
+        vmin, vmax = np.percentile(v_all, pct)
+    else:
+        vmin, vmax = float(np.min(v_all)), float(np.max(v_all))
+    if not np.isfinite(vmin) or not np.isfinite(vmax) or vmin == vmax:
+        vmin, vmax = (vmin - 1.0, vmax + 1.0) if np.isfinite(vmin) and np.isfinite(vmax) else (-1.0, 1.0)
+
+    units = ds[var].attrs.get('units', '')
+    cbar_title = f"{var} ({units})" if units else var
+
+    # ---- helper: center staggered winds to cell centres -------------------
+    def centered_vec(s):
+        xq = 0.5*(s.x_stag.values[1:] + s.x_stag.values[:-1])
+        zq = 0.5*(s.z_stag.values[1:] + s.z_stag.values[:-1])
+        u_q = 0.5*(s.u.values[:, 1:] + s.u.values[:, :-1])   # (z, x)
+        w_q = 0.5*(s.w.values[1:, :] + s.w.values[:-1, :])   # (z, x)
+        X, Z = np.meshgrid(xq, zq)
+        X, Z = X[::stride, ::stride], Z[::stride, ::stride]
+        U, W = u_q[::stride, ::stride], w_q[::stride, ::stride]
+        ang = np.arctan2(W, U); mag = np.hypot(U, W)
+        return hv.VectorField((X.ravel(), Z.ravel(), ang.ravel(), mag.ravel()),
+                              ['x','z'], ['angle','magnitude']).opts(
+            color='black', magnitude='magnitude', pivot='mid'
+        )
+
+    # ---- draw one frame ---------------------------------------------------
+    def draw(t):
+        s = ds.sel(t=t, method='nearest')
+        img = hv.Image((s.x.values, s.z.values, getattr(s, var).values),
+                       ['x','z'], var).opts(
+            cmap=cmap, clim=(vmin, vmax), colorbar=True,
+            colorbar_opts={'title': cbar_title},
+            width=width, height=height
+        )
+        return (img * centered_vec(s)).opts(
+            title=f"{var} + wind   |   t = {float(s.t.values):.2f} s",
+            framewise=False  # keep axes/CB stable while sliding
+        )
+
+    # ---- slider and panel -------------------------------------------------
+    tvals = ds.t.values.astype(float)
+    step = float(np.min(np.diff(tvals))) if tvals.size > 1 else 1.0
+    slider = pn.widgets.FloatSlider(
+        name='Time (s)', start=float(tvals.min()), end=float(tvals.max()),
+        step=step, value=float(tvals.min())
+    )
+    return pn.Column(pn.bind(draw, t=slider), slider)
+
+
+# --- usage ---
+# panel_view = quiver_theta_panel(ds, stride=8, cmap='turbo')  # or 'jet' if you prefer
+# panel_view   # display in notebook; or panel_view.show(); or panel_view.servable()
+

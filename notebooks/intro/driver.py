@@ -88,13 +88,13 @@ class ModelDriver:
             self.base_state_arrays['PI_base']
         )
 
-    def initialize_warm_bubble(self, amplitude, x_radius, z_radius, z_center):
+    def initialize_warm_bubble(self, amplitude, x_radius, z_radius, x_center, z_center):
         if np.min(self.base_state_arrays['theta_base']) <= 0.:
             raise ValueError("Base state theta must be initialized as positive definite")
 
         # Create thermal bubble (2D)
         theta_p, pi = create_thermal_bubble(
-            amplitude, self.coords['x'], self.coords['z'], x_radius, z_radius, 0.0, z_center, 
+            amplitude, self.coords['x'], self.coords['z'], x_radius, z_radius, x_center, z_center, 
             self.base_state_arrays['theta_base']
         )
         # Ensure boundary conditions, and add time stacking (future, current, past)

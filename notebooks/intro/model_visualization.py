@@ -5,10 +5,9 @@ import xarray as xr
 hv.extension('bokeh')
 pn.extension()  
 
-class ModelVis():
+class ModelVis:
     def __init__(self, ds):
         self.ds = ds
-
         self.timestep_slider = pn.widgets.FloatSlider(
             name='Time (s)',
             start=ds.t.data.min(),
@@ -16,24 +15,18 @@ class ModelVis():
             step=np.diff(ds.t.data)[0],
             value=ds.t.data.min()
         )
-
-        thetap_plot      = pn.bind(self.plot_timestep_thetap,    timestep=self.timestep_slider)
-        u_plot           = pn.bind(self.plot_timestep_u,         timestep=self.timestep_slider)
-        w_plot           = pn.bind(self.plot_timestep_w,         timestep=self.timestep_slider)
+        thetap_plot = pn.bind(self.plot_timestep_thetap, timestep=self.timestep_slider)
+        u_plot = pn.bind(self.plot_timestep_u, timestep=self.timestep_slider)
+        w_plot = pn.bind(self.plot_timestep_w, timestep=self.timestep_slider)
         thetap_hist_plot = pn.bind(self.plot_timestep_thetapmax_history, timestep=self.timestep_slider)
-        u_hist_plot      = pn.bind(self.plot_timestep_umax_history,       timestep=self.timestep_slider)
-        w_hist_plot      = pn.bind(self.plot_timestep_wmax_history,       timestep=self.timestep_slider)
+        u_hist_plot = pn.bind(self.plot_timestep_umax_history, timestep=self.timestep_slider)
+        w_hist_plot = pn.bind(self.plot_timestep_wmax_history, timestep=self.timestep_slider)
 
         self.panes = pn.Column(
-            pn.Row(thetap_plot, u_plot, w_plot, sizing_mode='stretch_width'),
-            pn.Row(thetap_hist_plot, u_hist_plot, w_hist_plot, sizing_mode='stretch_width'),
+            pn.Row(thetap_plot, u_plot, w_plot),
+            pn.Row(thetap_hist_plot, u_hist_plot, w_hist_plot),
             self.timestep_slider,
-            sizing_mode='stretch_width'
         )
-
-    def __panel__(self):
-        # This makes `mv` render as `mv.panes` in Jupyter
-        return self.panes
 
     def plot_timestep_thetap(self, timestep):
         ds_selected = self.ds.sel(t=timestep, method='nearest')

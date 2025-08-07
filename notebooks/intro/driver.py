@@ -30,7 +30,16 @@ metadata_attrs = {
     },
     't': {
         'units': 's'
-    }
+    },
+    'C_x': {
+        'units': '1'
+    },
+    'C_z': {
+        'units': '1'
+    },
+    'C_a': {
+        'units': '1'
+    }  
 }
 
 class ModelDriver:
@@ -69,38 +78,43 @@ class ModelDriver:
         self.base_state_arrays['theta_base'] = np.zeros(nz, dtype=dtype)
         self.base_state_arrays['PI_base'] = np.zeros(nz, dtype=dtype)
         self.base_state_arrays['rho_base'] = np.zeros(nz, dtype=dtype)
+        self.diagnostic_arrays['C_x'] = []
+        self.diagnostic_arrays['C_z'] = []
+        self.diagnostic_arrays['C_a'] = []   # will store np.nan if no c_s_sqr
         ## Todo do we need others??
-    # # --- add inside class ModelDriver ------------------------------------------ #
+    def compute_cfl(self):
+        """
+        CFL numbers for the *current* slice (index 1) after a time step is finalized.
+        Returns dict {'C_x': float, 'C_z': float, 'C_a': float or np.nan}.
+        """
+        u_face = self.prognostic_arrays['u'][1]          # (nz, nx+1)
+        w_face = self.prognostic_arrays['w'][1]          # (nz+1, nx)
+    
+        # Advective CFLs: face-centred maxima (C-grid consistent)
+        umax = np.abs(u_face).max()
+        wmax = np.abs(w_face).max()
+        C_x  = float(umax * self.dt / self.dx)
+        C_z  = float(wmax * self.dt / self.dz)
+    
+        # Acoustic CFL: collocate to cell centres before |u⃗|
+        if 'c_s_sqr' in self.params:
+            u_c = 0.5 * (u_face[:, :-1] + u_face[:, 1:])   # (nz, nx)
+            w_c = 0.5 * (w_face[:-1, :] + w_face[1:, :])   # (nz, nx)
+            uv_max = float(np.hypot(u_c, w_c).max())
+            c_s    = float(np.sqrt(self.params['c_s_sqr']))
+            C_a    = (uv_max + c_s) * self.dt / min(self.dx, self.dz)
+        else:
+            C_a = np.nan
+    
+        return {'C_x': C_x, 'C_z': C_z, 'C_a': float(C_a)}
+    
+    def _log_cfl(self):
+        """Append current CFL numbers to history (one value per model step)."""
+        cfl = self.compute_cfl()
+        self.diagnostic_arrays['C_x'].append(cfl['C_x'])
+        self.diagnostic_arrays['C_z'].append(cfl['C_z'])
+        self.diagnostic_arrays['C_a'].append(cfl['C_a'])
 
-    # # ------------------------------------------------------------------
-    # #  Utility: compute CFL numbers for the *current* prognostic fields
-    # # ------------------------------------------------------------------
-    # def compute_cfl(self, include_acoustic=True):
-    #     #Return horizontal, vertical, and (optionally) acoustic CFL numbers
-    #     # --- face-centred extrema for the advective criteria ------------------
-    #     umax = np.max(np.abs(self.prognostic_arrays['u'][1]))      # u on x-faces
-    #     wmax = np.max(np.abs(self.prognostic_arrays['w'][1]))      # w on z-faces
-    
-    #     C_x = umax * self.dt / self.dx
-    #     C_z = wmax * self.dt / self.dz
-    #     cfl = {'C_x': C_x, 'C_z': C_z}
-    
-    #     # --- collocate u and w before forming the acoustic speed -------------
-    #     if include_acoustic and 'c_s_sqr' in self.params:
-    #         u_face = self.prognostic_arrays['u'][1]                # (nz, nx+1)
-    #         w_face = self.prognostic_arrays['w'][1]                # (nz+1, nx)
-    
-    #         # average to (nz, nx) cell centres
-    #         u_c = 0.5 * (u_face[:, :-1] + u_face[:, 1:])
-    #         w_c = 0.5 * (w_face[:-1, :] + w_face[1:, :])
-    
-    #         umag_max = np.max(np.sqrt(u_c**2 + w_c**2))
-    #         c_s      = np.sqrt(self.params['c_s_sqr'])
-    
-    #         C_a = (umag_max + c_s) * self.dt / min(self.dx, self.dz)
-    #         cfl['C_a'] = C_a
-    
-    #     return cfl
 
     def initialize_isentropic_base_state(self, theta, pressure_surface):
         # Set uniform potential temperature
@@ -185,6 +199,7 @@ class ModelDriver:
         )
 
         self.prep_new_timestep()
+        self._log_cfl() 
 
     def take_single_timestep(self):
         # Check if initialized
@@ -225,6 +240,7 @@ class ModelDriver:
         )
 
         self.prep_new_timestep()
+        self._log_cfl() 
 
     def integrate(self, n_steps):
         for _ in range(n_steps):
@@ -246,4 +262,16 @@ class ModelDriver:
         data_vars['z'] = xr.Variable('z', self.coords['z'], metadata_attrs['z'])
         data_vars['z_stag'] = xr.Variable('z_stag', self.coords['z_stag'], metadata_attrs['z_stag'])
         data_vars['t'] = xr.Variable('t', [self.t_count * self.dt], metadata_attrs['t'])
+
+        if len(self.diagnostic_arrays.get('C_x', [])) == 0:
+            cfl_now = self.compute_cfl()
+            Cx, Cz, Ca = cfl_now['C_x'], cfl_now['C_z'], cfl_now['C_a']
+        else:
+            Cx = self.diagnostic_arrays['C_x'][-1]
+            Cz = self.diagnostic_arrays['C_z'][-1]
+            Ca = self.diagnostic_arrays['C_a'][-1]
+    
+        data_vars['C_x'] = xr.Variable('t', [Cx], metadata_attrs['C_x'])
+        data_vars['C_z'] = xr.Variable('t', [Cz], metadata_attrs['C_z'])
+        data_vars['C_a'] = xr.Variable('t', [Ca], metadata_attrs['C_a'])
         return xr.Dataset(data_vars)

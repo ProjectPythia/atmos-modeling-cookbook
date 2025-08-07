@@ -2,6 +2,7 @@ import panel as pn
 import holoviews as hv
 import numpy as np
 import xarray as xr
+import matplotlib.pyplot as plt
 hv.extension('bokeh')
 pn.extension()  
 
@@ -137,3 +138,40 @@ def quiver_theta_panel(ds, var='theta_p', stride=8, cmap='turbo',
 # panel_view = quiver_theta_panel(ds, stride=8, cmap='turbo')  # or 'jet' if you prefer
 # panel_view   # display in notebook; or panel_view.show(); or panel_view.servable()
 
+
+def plot_cfl_timeseries(ds, annotate_max=True):
+    """
+    Plot CFL time series from an xarray.Dataset with 1-D vars C_x, C_z, (optional) C_a on dim 't'.
+    Draws dotted grid, colored lines with labels; optionally marks global maxima.
+    """
+    t  = np.asarray(ds['t'].values, dtype=float)
+    Cx = np.asarray(ds['C_x'].values, dtype=float)
+    Cz = np.asarray(ds['C_z'].values, dtype=float)
+    Ca = np.asarray(ds['C_a'].values, dtype=float) if 'C_a' in ds else None
+
+    fig, ax = plt.subplots(figsize=(9, 4.5))
+
+    ln1, = ax.plot(t, Cx, label='C_x (horiz)',  lw=1.8)
+    ln2, = ax.plot(t, Cz, label='C_z (vert)',   lw=1.8)
+    if Ca is not None and np.isfinite(Ca).any():
+        ln3, = ax.plot(t, Ca, label='C_a (acoustic)', lw=1.8)
+
+    ax.set_xlabel('Time (s)')
+    ax.set_ylabel('CFL')
+    ax.grid(True, ls=':', alpha=0.6)
+    ax.legend(frameon=False, ncol=3 if Ca is not None else 2)
+    ax.set_title('CFL numbers through time')
+    plt.tight_layout()
+
+    if annotate_max:
+        # highlight maxima (ignoring NaNs)
+        ix = np.nanargmax(Cx); ax.scatter(t[ix], Cx[ix], s=40, zorder=3)
+        iz = np.nanargmax(Cz); ax.scatter(t[iz], Cz[iz], s=40, zorder=3)
+        print(f"Max C_x = {Cx[ix]:.3f} at t = {t[ix]:.2f} s")
+        print(f"Max C_z = {Cz[iz]:.3f} at t = {t[iz]:.2f} s")
+        if Ca is not None and np.isfinite(Ca).any():
+            ia = np.nanargmax(Ca); ax.scatter(t[ia], Ca[ia], s=40, zorder=3)
+            print(f"Max C_a = {Ca[ia]:.3f} at t = {t[ia]:.2f} s")
+
+    plt.show()
+    return fig, ax

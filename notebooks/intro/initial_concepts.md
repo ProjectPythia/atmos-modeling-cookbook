@@ -8,7 +8,7 @@ In general, numerical modeling involves solving a set mathematical equations tha
 
 Now that you know what an atmospheric model is and how it uses numerical integration to make its projections, we're ready to discuss the process of building your own!
 
-## What are the Key Steps of Numerical Modeling?
+## What are the Key Steps of Numerical Modeling? (needs work)
 
 
 - Formulate the Equations: Start with the fundamental equations that describe atmospheric dynamics. These include the Navier-Stokes equations, thermodynamic equations, and continuity equations.
@@ -34,15 +34,5 @@ There are also many constants that you will likely encounter in an atmospheric m
 
 ## What Else Should I Expect From This Cookbook?
 
-
-
-## Meteorological Concepts (needs adjusting)
-
-In order to effectively model the atmosphere, it's important to determine and define the variables of interest.
-
-
-- Temperature: A measure of the warmth or coldness of the atmosphere, in Kelvins (K).
-- Pressure: The force exerted by the weight of the air above a certain point. Measured in units such as Pascals (Pa) or millibars (mb).
-- Wind: The movement of air relative to the Earth's surface. Described by speed and direction (two-dimensional in our case).
 
 ...

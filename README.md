@@ -1,4 +1,4 @@
-# Fundamentals of Atmsopheric Modeling Cookbook
+# Fundamentals of Atmospheric Modeling Cookbook
 
 <img src="thumbnail.png" alt="thumbnail" width="300"/>
 

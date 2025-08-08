@@ -39,5 +39,4 @@ Following these steps will allow you to simulate the atmosphere in a physically 
 
 ## What Else Should I Expect From This Cookbook?
 
-
-...
+In the following chapters, we'll go into many of the above steps in greater detail using two different simple atmospheric models. We'll also discuss troubleshooting and refining your model when issues arise. By the end of this cookbook, you will be all set to build your atmospheric model that takes advantage of the computational benefits of Numba!

@@ -82,12 +82,15 @@ class ModelDriver:
         self.diagnostic_arrays['C_z'] = []
         self.diagnostic_arrays['C_a'] = []   # will store np.nan if no c_s_sqr
         ## Todo do we need others??
-        
     def compute_cfl(self, use_fast_dt=True):
-        u_face = self.prognostic_arrays['u'][1]     # (nz, nx+1)
-        w_face = self.prognostic_arrays['w'][1]     # (nz+1, nx)
+        u_face = self.prognostic_arrays['u'][1]   # (nz, nx+1)
+        w_face = self.prognostic_arrays['w'][1]   # (nz+1, nx)
     
-        # Advective CFLs
+        # If fields are already all-bad, bail
+        if not np.isfinite(u_face).any() or not np.isfinite(w_face).any():
+            return {'C_x': np.nan, 'C_z': np.nan, 'C_a': np.nan}
+    
+        # Advective CFLs (ignore NaNs)
         umax = np.nanmax(np.abs(u_face))
         wmax = np.nanmax(np.abs(w_face))
         C_x  = float(umax * self.dt / self.dx) if np.isfinite(umax) else np.nan
@@ -95,20 +98,33 @@ class ModelDriver:
     
         # Acoustic CFL
         if 'c_s_sqr' in self.params:
-            # collocate with pairwise masks to avoid invalid-value warnings
             u_l, u_r = u_face[:, :-1], u_face[:, 1:]
             w_b, w_t = w_face[:-1, :], w_face[1:, :]
     
-            u_sum = np.where(np.isfinite(u_l) & np.isfinite(u_r), u_l + u_r, np.nan)
-            w_sum = np.where(np.isfinite(w_b) & np.isfinite(w_t), w_b + w_t, np.nan)
+            mask_u = np.isfinite(u_l) & np.isfinite(u_r)
+            mask_w = np.isfinite(w_b) & np.isfinite(w_t)
     
-            u_c = 0.5 * u_sum
-            w_c = 0.5 * w_sum
+            # use out= and where= to avoid “invalid value encountered in add”
+            u_c = np.full_like(u_l, np.nan, dtype=np.float64)
+            w_c = np.full_like(w_b, np.nan, dtype=np.float64)
+            np.add(u_l, u_r, out=u_c, where=mask_u)
+            np.add(w_b, w_t, out=w_c, where=mask_w)
+            u_c *= 0.5; w_c *= 0.5
     
-            uv_max = np.nanmax(np.hypot(u_c, w_c))
-            c_s    = float(np.sqrt(self.params['c_s_sqr']))
-            dt_a   = float(self.params.get('dt_acoustic', self.dt)) if use_fast_dt else self.dt
-            C_a    = float((uv_max + c_s) * dt_a / min(self.dx, self.dz)) if np.isfinite(uv_max) else np.nan
+            # only evaluate hypot where both u_c and w_c are finite
+            valid = np.isfinite(u_c) | np.isfinite(w_c)
+            if not valid.any():
+                C_a = np.nan
+            else:
+                # build a temporary array only for valid entries (no all-NaN warnings)
+                uv = np.hypot(np.where(valid, u_c, 0.0), np.where(valid, w_c, 0.0))
+                uv_max = float(uv[valid].max()) if valid.any() else np.nan
+                if np.isfinite(uv_max):
+                    c_s  = float(np.sqrt(self.params['c_s_sqr']))
+                    dt_a = float(self.params.get('dt_acoustic', self.dt)) if use_fast_dt else self.dt
+                    C_a  = (uv_max + c_s) * dt_a / min(self.dx, self.dz)
+                else:
+                    C_a = np.nan
         else:
             C_a = np.nan
     

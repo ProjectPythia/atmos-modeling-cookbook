@@ -158,14 +158,18 @@ def plot_cfl_timeseries(ds, annotate_max=True):
     plt.show()
     return fig, ax
 
-def cfl_quiver_dashboard(
-    ds, var='theta_p', stride=8, cmap='turbo',
-    robust=True, pct=(1, 99),
-    width_left=820, height_left=480,
-    width_right=620, height_right=480,
-    show_ca=True, show_max=True,
-):
-    # --- global color limits (constant colorbar) ---
+def cfl_quiver_row(ds, var='theta_p', stride=6, arrow_gain=1.4, cmap='turbo',
+                   robust=True, pct=(1, 99),
+                   width_left=820, height_left=480,
+                   width_right=500, height_right=480,
+                   show_ca=True, show_max=True):
+
+    # ----- time vector and helper to select nearest index (handles non-unique t) -----
+    tvals = np.asarray(ds.t.values, dtype=float)
+    def _nearest_idx(t):
+        return int(np.nanargmin(np.abs(tvals - float(t))))
+
+    # ----- constant colorbar limits for var -----
     vals = np.asarray(ds[var].values)
     vals = vals[np.isfinite(vals)]
     if vals.size == 0:
@@ -176,76 +180,92 @@ def cfl_quiver_dashboard(
         vmin, vmax = float(vals.min()), float(vals.max())
     if not np.isfinite(vmin) or not np.isfinite(vmax) or vmin == vmax:
         vmin, vmax = -1.0, 1.0
-
+    vmin, vmax = float(vmin), float(vmax)
     units = ds[var].attrs.get('units', '')
     cbar_title = f"{var} ({units})" if units else var
 
-    # --- time & CFL series ---
-    tvals = np.asarray(ds.t.values, dtype=float)
+    # ----- CFL series prebuilt once -----
     Cx = np.asarray(ds['C_x'].values, dtype=float)
     Cz = np.asarray(ds['C_z'].values, dtype=float)
-    Ca = np.asarray(ds['C_a'].values, dtype=float) if (show_ca and 'C_a' in ds.data_vars) else None
+    Ca = np.asarray(ds['C_a'].values, dtype=float) if (show_ca and 'C_a' in ds) else None
 
-    ix = np.nanargmax(Cx) if np.isfinite(Cx).any() else None
-    iz = np.nanargmax(Cz) if np.isfinite(Cz).any() else None
-    ia = np.nanargmax(Ca) if (Ca is not None and np.isfinite(Ca).any()) else None
+    cfl_base  = hv.Curve((tvals, Cx), 't', 'CFL', label='C_x').opts(color='red',   line_width=2)
+    cfl_base *= hv.Curve((tvals, Cz), 't', 'CFL', label='C_z').opts(color='blue',  line_width=2)
+    if Ca is not None and np.isfinite(Ca).any():
+        cfl_base *= hv.Curve((tvals, Ca), 't', 'CFL', label='C_a').opts(color='green', line_width=2)
 
-    # --- center staggered winds ---
-    def centered_vec(s):
+    if show_max:
+        pts = []
+        if np.isfinite(Cx).any():
+            ix = int(np.nanargmax(Cx)); pts.append(hv.Scatter(([tvals[ix]], [Cx[ix]])).opts(size=6, color='red'))
+        if np.isfinite(Cz).any():
+            iz = int(np.nanargmax(Cz)); pts.append(hv.Scatter(([tvals[iz]], [Cz[iz]])).opts(size=6, color='blue'))
+        if Ca is not None and np.isfinite(Ca).any():
+            ia = int(np.nanargmax(Ca)); pts.append(hv.Scatter(([tvals[ia]], [Ca[ia]])).opts(size=6, color='green'))
+        if pts:
+            cfl_base *= hv.Overlay(pts)
+
+    cfl_base = cfl_base.opts(
+        title='CFL through time',
+        legend_position='top_left', show_legend=True,
+        gridstyle={'grid_line_dash': 'dotted'},
+        width=width_right, height=height_right
+    )
+
+    # ----- stagger-aware vector construction -----
+    def _centered_vectorfield(s):
         xq = 0.5*(s.x_stag.values[1:] + s.x_stag.values[:-1])
         zq = 0.5*(s.z_stag.values[1:] + s.z_stag.values[:-1])
-        u_q = 0.5*(s.u.values[:, 1:] + s.u.values[:, :-1])
-        w_q = 0.5*(s.w.values[1:, :] + s.w.values[:-1, :])
-        X, Z = np.meshgrid(xq, zq)
-        X, Z = X[::stride, ::stride], Z[::stride, ::stride]
-        U, W = u_q[::stride, ::stride], w_q[::stride, ::stride]
-        ang = np.arctan2(W, U); mag = np.hypot(U, W)
-        return hv.VectorField((X.ravel(), Z.ravel(), ang.ravel(), mag.ravel()),
-                              ['x','z'], ['angle','magnitude']).opts(
-            color='black', magnitude='magnitude', pivot='mid'
-        )
+        u  = 0.5*(s.u.values[:, 1:] + s.u.values[:, :-1])     # (z, x)
+        w  = 0.5*(s.w.values[1:, :] + s.w.values[:-1, :])     # (z, x)
 
-    # --- left panel (θ′ + quiver) ---
+        X, Z = np.meshgrid(xq, zq, indexing='xy')
+        X, Z = X[::stride, ::stride], Z[::stride, ::stride]
+        U, W = u[::stride, ::stride], w[::stride, ::stride]
+
+        ang = np.arctan2(W, U)
+        mag = arrow_gain * np.hypot(U, W)
+
+        return hv.VectorField(
+            (X.ravel(), Z.ravel(), ang.ravel(), mag.ravel()),
+            ['x', 'z'], ['angle', 'magnitude']
+        ).opts(color='black', magnitude='magnitude', pivot='mid')
+
+    # ----- left plot drawer (θ' + quiver) -----
     def draw_left(t):
-        s = ds.sel(t=t, method='nearest')
+        idx = _nearest_idx(t)
+        s = ds.isel(t=idx)
         img = hv.Image((s.x.values, s.z.values, getattr(s, var).values),
-                       ['x','z'], var).opts(
+                       ['x', 'z'], var).opts(
             cmap=cmap, clim=(vmin, vmax), colorbar=True,
             colorbar_opts={'title': cbar_title},
             width=width_left, height=height_left
         )
-        return (img * centered_vec(s)).opts(
-            title=f"{var} + wind   |   t = {float(s.t.values):.2f} s",
+        return (img * _centered_vectorfield(s)).opts(
+            title=f"{var} + wind  |  t = {tvals[idx]:.2f} s",
             framewise=False
         )
 
-    # --- right panel (CFL time series + cursor) ---
+    # ----- right plot drawer (CFL with synced cursor) -----
     def draw_right(t):
-        c1 = hv.Curve((tvals, Cx), 't', 'CFL').relabel('C_x').opts(line_width=2)
-        c2 = hv.Curve((tvals, Cz), 't', 'CFL').relabel('C_z').opts(line_width=2)
-        overlay = c1 * c2
-        if Ca is not None and np.isfinite(Ca).any():
-            c3 = hv.Curve((tvals, Ca), 't', 'CFL').relabel('C_a').opts(line_width=2)
-            overlay = overlay * c3
-        if show_max:
-            pts = []
-            if ix is not None: pts.append(hv.Scatter(([tvals[ix]], [Cx[ix]])).opts(size=6))
-            if iz is not None: pts.append(hv.Scatter(([tvals[iz]], [Cz[iz]])).opts(size=6))
-            if ia is not None: pts.append(hv.Scatter(([tvals[ia]], [Ca[ia]])).opts(size=6))
-            if pts: overlay = overlay * hv.Overlay(pts)
-        vline = hv.VLine(float(t))
-        return (overlay * vline).opts(
-            title='CFL numbers through time',
-            width=width_right, height=height_right,
-            legend_position='top_left', show_legend=True
-        )
+        return (cfl_base * hv.VLine(float(t)).opts(
+            color='black', 
+            line_dash='dotted',
+            width=500, height=480,  # keep consistent size
+            xticks=6,               # cleaner tick count
+            xformatter='%.1e',      # scientific notation
+            toolbar=None
+        ))
 
-    # --- one slider for both panels ---
-    options = [float(tt) for tt in tvals]
-    slider = pn.widgets.DiscreteSlider(name='Time (s)', options=options, value=options[0])
+
+    # ----- shared slider -----
+    slider = pn.widgets.DiscreteSlider(name='Time (s)',
+                                       options=[float(t) for t in tvals],
+                                       value=float(tvals[0]))
 
     left  = pn.bind(draw_left,  t=slider)
     right = pn.bind(draw_right, t=slider)
 
-    # layout: plots side-by-side, slider below
     return pn.Column(pn.Row(left, right), slider)
+
+

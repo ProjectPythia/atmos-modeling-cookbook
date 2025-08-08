@@ -26,6 +26,9 @@ project:
     - file: notebooks/numerics/finite_differencing.md
     - file: notebooks/config/init_boundary_conditions.md
     - file: notebooks/summary/summary.md
+    - title: Appendix
+      children:
+        - file: notebooks/appendix/finite_differencing.md
   jupyter:
       binder:
         repo: projectpythia/atmos-modeling-cookbook

@@ -1,6 +1,6 @@
 # Introductory Concepts in Atmospheric Modeling
 
-Welcome to the Fundamentals of Atmospheric Modeling Cookbook! This cookbook is designed to act as a first foray into simulating atmospheric phenomena, focusing on two simple 2D approaches, and will briefly familiarize you with fundamental principles and terminology used in atmospheric sciences and modeling, including basic meteorological and mathematical concepts and numerical methods. The work done here takes advantage of the Python package Numba {cite:p}`lam2015numba` and its ability to accelerate a subset of Python code pertaining to numerical computation, like mathematical operations and loops. The foundations of this book are based on {cite:t}`Klemp1978-dq`, which laid the groundwork for modern atmospheric modeling and is a great jumping-off point to begin your journey through this process.
+Welcome to the Fundamentals of Atmospheric Modeling Cookbook! This cookbook is designed to act as a first foray into simulating atmospheric phenomena, focusing on two simple 2D approaches, and will briefly familiarize you with fundamental principles and terminology used in atmospheric sciences and modeling, including basic meteorological and mathematical concepts and numerical methods. The work done here takes advantage of the Python package Numba {cite:p}`lam2015numba` and its ability to accelerate a subset of Python code pertaining to numerical computation, like mathematical operations and loops. The foundations of this book are based on {cite:t}`Klemp1978-dq`, a cloud model that uses a prognostic equation for pressure, which lets us streamline its numerical implementation, thus making it a great jumping-off point to begin your journey through this process.
 
 ## What is Numerical Modeling, and how is it used in Atmospheric Science?
 
@@ -27,8 +27,8 @@ Atmospheric models range from huge simulations of the entire Earth as a coupled 
 
 - Temperature ($T$): the thermal energy (i.e. hotness or coldness) of the air, measured in Kelvins (K)
 - Pressure ($p$): the total force exerted by a parcel of air, measured in Pascals (Pa)
-- Density ($\rho$): the total mass per unit volume of air, measured in kg m$^{-3}$
-- Wind speed: the rate of movement of an air parcel in the zonal ($u$), meridional ($v$), and vertical ($w$) directions, measured in m s$^{-1}$
+- Density ($\rho$): the total mass per unit volume of air, measured in kg m<sup>-3</sup>
+- Wind speed: the rate of movement of an air parcel in the zonal ($u$), meridional ($v$), and vertical ($w$) directions, measured in m s<sup>-1</sup>
 
 There are also many constants that you will likely encounter in an atmospheric model, like the gas constant and specific heat. Many more variables exist that are essential to many existing models used for the weather predictions you receive each day, but for this cookbook, we'll be focusing mostly on those listed above.
 

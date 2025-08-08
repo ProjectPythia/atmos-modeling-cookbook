@@ -1,3 +1,0 @@
-# Initial and Boundary Conditions
-
-...

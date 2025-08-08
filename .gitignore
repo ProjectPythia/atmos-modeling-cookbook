@@ -137,3 +137,6 @@ dmypy.json
 
 # MyST build outputs
 _build
+
+# VS Code
+.vscode/

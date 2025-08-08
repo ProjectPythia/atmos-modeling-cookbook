@@ -18,10 +18,10 @@ These methods are used to approximate the solution to a differential equation by
 
 | Method | Scheme | Order |
 | :---: | :--- | :---: |
-| **Explicit** | $$\tilde{u}^{\tau+1} = \tilde{u}^\tau + \Delta t Q^\tau$$|$\Delta t$ |
-| **Implicit** | $$\tilde{u}^{\tau+1} = \tilde{u}^\tau + \Delta t Q^{\tau+1}$$|$\Delta t$ |
-| **Trapezoidal** | $$\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{2}(Q^\tau + Q^{\tau+1})$$|$\Delta t^2$ |
-| **General** | $$\tilde{u}^{\tau+1} = \tilde{u}^\tau + \Delta t((1-\alpha)Q^\tau + \alpha Q^{\tau+1})$$|$\Delta t$ |
+| **Explicit** | $$\label{euler_explicit}\tilde{u}^{\tau+1} = \tilde{u}^\tau + \Delta t Q^\tau$$|$\Delta t$ |
+| **Implicit** | $$\label{euler_implicit}\tilde{u}^{\tau+1} = \tilde{u}^\tau + \Delta t Q^{\tau+1}$$|$\Delta t$ |
+| **Trapezoidal** | $$\label{euler_trapezoidal}\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{2}(Q^\tau + Q^{\tau+1})$$|$\Delta t^2$ |
+| **General** | $$\label{euler_general}\tilde{u}^{\tau+1} = \tilde{u}^\tau + \Delta t((1-\alpha)Q^\tau + \alpha Q^{\tau+1})$$|$\Delta t$ |
 
 :::{note} General Method
 This is a flexible framework that combines the explicit and implicit methods using a weighting factor, $\alpha$.
@@ -40,10 +40,10 @@ Unlike single-step methods that only use information from the most recent time s
 
 | Method | Scheme | Truncation Order |
 | :---: | :--- | :---: |
-| **Leapfrog** | $$\tilde{u}^{\tau+1} = \tilde{u}^{\tau-1} + 2\Delta t Q^\tau$$|$\Delta t^2$ |
-| **Adams-Bashforth** | $$\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{2}(-Q^{\tau-1} + 3Q^\tau)$$|$\Delta t^2$ |
-| **Adams-Moulton** | $$\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{12}(-Q^{\tau-1} + 8Q^\tau + 5Q^{\tau+1})$$|$\Delta t^3$ |
-| **Adams-Bashforth** | $$\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{12}(5Q^{\tau-2} - 16Q^{\tau-1} + 23Q^{\tau+1})$$|$\Delta t^3$ |
+| **Leapfrog** | $$\label{leapfrog}\tilde{u}^{\tau+1} = \tilde{u}^{\tau-1} + 2\Delta t Q^\tau$$|$\Delta t^2$ |
+| **Adams-Bashforth** | $$\label{adams_bashforth}\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{2}(-Q^{\tau-1} + 3Q^\tau)$$|$\Delta t^2$ |
+| **Adams-Moulton** | $$\label{adams_moulton}\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{12}(-Q^{\tau-1} + 8Q^\tau + 5Q^{\tau+1})$$|$\Delta t^3$ |
+| **Adams-Bashforth** | $$\label{adams_bashforth_2}\tilde{u}^{\tau+1} = \tilde{u}^\tau + \frac{\Delta t}{12}(5Q^{\tau-2} - 16Q^{\tau-1} + 23Q^{\tau+1})$$|$\Delta t^3$ |
 
 :::{note} Leapfrog
 The leapfrog method is an explicit, second-order method that is popular for simulating physical systems. It gets its name because it "leaps" over the current point ($u^\tau$) to calculate the next point ($u^{\tau+1}$) using the derivative at $u^\tau$ and the value from the previous point, $u^{\tau-1}$. This structure helps conserve energy in long-term simulations but can sometimes lead to instability.
@@ -63,5 +63,5 @@ The core idea is to take a "trial" step, re-evaluate the derivative at this new 
 
 | Method | Scheme | Order |
 | :---: | :--- | :---: |
-| **Runge-Kutta** (2nd Order) | $$\begin{aligned} \tilde{u}^{\tau+1/2} &= \tilde{u}^\tau + \frac{\Delta t}{2}Q(t^\tau, \tilde{u}^\tau) \\ \tilde{u}^{\tau+1} &= \tilde{u}^\tau + \Delta t Q(t^{\tau+1/2}, \tilde{u}^{\tau+1/2}) \end{aligned}$$|$\Delta t^2$ |
-| **Runge-Kutta** (4th Order) | $$\begin{aligned} \tilde{u}_a^{\tau+1/2} &= \tilde{u}^\tau + \frac{\Delta t}{2}Q(t^\tau, \tilde{u}^\tau) \\ \tilde{u}_b^{\tau+1/2} &= \tilde{u}^\tau + \frac{\Delta t}{2}Q(t^{\tau+1/2}, \tilde{u}_a^{\tau+1/2}) \\ \tilde{u}^* &= \tilde{u}^\tau + \Delta t Q(t^{\tau+1/2}, \tilde{u}_b^{\tau+1/2}) \\ \tilde{u}^{\tau+1} &= \tilde{u}^\tau + \frac{\Delta t}{6} \big( Q(t^\tau, \tilde{u}^\tau) + 2Q(t^{\tau+1/2}, \tilde{u}_a^{\tau+1/2}) \\ &+ 2Q(t^{\tau+1/2}, \tilde{u}_b^{\tau+1/2}) + Q(t^{\tau+1}, \tilde{u}^*) \big) \end{aligned}$$|$\Delta t^4$ |
+| **Runge-Kutta** (2nd Order) | $$\label{rk2}\begin{aligned} \tilde{u}^{\tau+1/2} &= \tilde{u}^\tau + \frac{\Delta t}{2}Q(t^\tau, \tilde{u}^\tau) \\ \tilde{u}^{\tau+1} &= \tilde{u}^\tau + \Delta t Q(t^{\tau+1/2}, \tilde{u}^{\tau+1/2}) \end{aligned}$$|$\Delta t^2$ |
+| **Runge-Kutta** (4th Order) | $$\label{rk4}\begin{aligned} \tilde{u}_a^{\tau+1/2} &= \tilde{u}^\tau + \frac{\Delta t}{2}Q(t^\tau, \tilde{u}^\tau) \\ \tilde{u}_b^{\tau+1/2} &= \tilde{u}^\tau + \frac{\Delta t}{2}Q(t^{\tau+1/2}, \tilde{u}_a^{\tau+1/2}) \\ \tilde{u}^* &= \tilde{u}^\tau + \Delta t Q(t^{\tau+1/2}, \tilde{u}_b^{\tau+1/2}) \\ \tilde{u}^{\tau+1} &= \tilde{u}^\tau + \frac{\Delta t}{6} \big( Q(t^\tau, \tilde{u}^\tau) + 2Q(t^{\tau+1/2}, \tilde{u}_a^{\tau+1/2}) \\ &+ 2Q(t^{\tau+1/2}, \tilde{u}_b^{\tau+1/2}) + Q(t^{\tau+1}, \tilde{u}^*) \big) \end{aligned}$$|$\Delta t^4$ |

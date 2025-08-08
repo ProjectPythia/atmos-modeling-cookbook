@@ -27,7 +27,7 @@ Atmospheric models range from huge simulations of the entire Earth as a coupled 
 
 - Temperature ($T$): the thermal energy (i.e. hotness or coldness) of the air, measured in Kelvins (K)
 - Pressure ($p$): the total force exerted by a parcel of air, measured in Pascals (Pa)
-- Density ($\rho$): the total mass per unit volume of air, measured in kg m$^{-3}$
+- Density ($\rho$): the total mass per unit volume of air, measured in kg m<sup>-3</sup>
 - Wind speed: the rate of movement of an air parcel in the zonal ($u$), meridional ($v$), and vertical ($w$) directions, measured in m s$^{-1}$
 
 There are also many constants that you will likely encounter in an atmospheric model, like the gas constant and specific heat. Many more variables exist that are essential to many existing models used for the weather predictions you receive each day, but for this cookbook, we'll be focusing mostly on those listed above.

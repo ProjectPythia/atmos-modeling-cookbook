@@ -82,34 +82,41 @@ class ModelDriver:
         self.diagnostic_arrays['C_z'] = []
         self.diagnostic_arrays['C_a'] = []   # will store np.nan if no c_s_sqr
         ## Todo do we need others??
-    def compute_cfl(self):
-        """
-        CFL numbers for the *current* slice (index 1) after a time step is finalized.
-        Returns dict {'C_x': float, 'C_z': float, 'C_a': float or np.nan}.
-        """
-        u_face = self.prognostic_arrays['u'][1]          # (nz, nx+1)
-        w_face = self.prognostic_arrays['w'][1]          # (nz+1, nx)
+        
+    def compute_cfl(self, use_fast_dt=True):
+        u_face = self.prognostic_arrays['u'][1]     # (nz, nx+1)
+        w_face = self.prognostic_arrays['w'][1]     # (nz+1, nx)
     
-        # Advective CFLs: face-centred maxima (C-grid consistent)
-        umax = np.abs(u_face).max()
-        wmax = np.abs(w_face).max()
-        C_x  = float(umax * self.dt / self.dx)
-        C_z  = float(wmax * self.dt / self.dz)
+        # Advective CFLs
+        umax = np.nanmax(np.abs(u_face))
+        wmax = np.nanmax(np.abs(w_face))
+        C_x  = float(umax * self.dt / self.dx) if np.isfinite(umax) else np.nan
+        C_z  = float(wmax * self.dt / self.dz) if np.isfinite(wmax) else np.nan
     
-        # Acoustic CFL: collocate to cell centres before |u⃗|
+        # Acoustic CFL
         if 'c_s_sqr' in self.params:
-            u_c = 0.5 * (u_face[:, :-1] + u_face[:, 1:])   # (nz, nx)
-            w_c = 0.5 * (w_face[:-1, :] + w_face[1:, :])   # (nz, nx)
-            uv_max = float(np.hypot(u_c, w_c).max())
+            # collocate with pairwise masks to avoid invalid-value warnings
+            u_l, u_r = u_face[:, :-1], u_face[:, 1:]
+            w_b, w_t = w_face[:-1, :], w_face[1:, :]
+    
+            u_sum = np.where(np.isfinite(u_l) & np.isfinite(u_r), u_l + u_r, np.nan)
+            w_sum = np.where(np.isfinite(w_b) & np.isfinite(w_t), w_b + w_t, np.nan)
+    
+            u_c = 0.5 * u_sum
+            w_c = 0.5 * w_sum
+    
+            uv_max = np.nanmax(np.hypot(u_c, w_c))
             c_s    = float(np.sqrt(self.params['c_s_sqr']))
-            C_a    = (uv_max + c_s) * self.dt / min(self.dx, self.dz)
+            dt_a   = float(self.params.get('dt_acoustic', self.dt)) if use_fast_dt else self.dt
+            C_a    = float((uv_max + c_s) * dt_a / min(self.dx, self.dz)) if np.isfinite(uv_max) else np.nan
         else:
             C_a = np.nan
     
-        return {'C_x': C_x, 'C_z': C_z, 'C_a': float(C_a)}
+        return {'C_x': C_x, 'C_z': C_z, 'C_a': C_a}
+
     
     def _log_cfl(self):
-        """Append current CFL numbers to history (one value per model step)."""
+        # Append current CFL numbers to history (one value per model step).
         cfl = self.compute_cfl()
         self.diagnostic_arrays['C_x'].append(cfl['C_x'])
         self.diagnostic_arrays['C_z'].append(cfl['C_z'])
@@ -247,7 +254,7 @@ class ModelDriver:
             self.take_single_timestep()
 
     def current_state(self):
-        """Export the prognostic variables, with coordinates, at current time."""
+        # Export the prognostic variables, with coordinates, at current time.
         data_vars = {}
         for var in self.active_prognostic_variables:
             if var == 'u':

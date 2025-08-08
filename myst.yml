@@ -18,14 +18,12 @@ project:
     - title: Introduction
       children:
         - file: notebooks/intro/initial_concepts.md
-        - file: notebooks/intro/matsuno-gill.md
+        - file: notebooks/intro/matsuno-gill.ipynb
         - file: notebooks/intro/crash_course.ipynb
         - file: notebooks/intro/troubleshooting.ipynb
         - file: notebooks/intro/improving_model.ipynb
     - file: notebooks/dynamics/dynamics_overview.md
-    - title: Methods of Solution
-      children:
-        - file: notebooks/numerics/finite_differencing.md
+    - file: notebooks/numerics/finite_differencing.md
     - file: notebooks/config/init_boundary_conditions.md
     - file: notebooks/summary/summary.md
   jupyter:

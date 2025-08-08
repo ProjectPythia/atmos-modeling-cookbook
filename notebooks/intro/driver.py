@@ -30,7 +30,16 @@ metadata_attrs = {
     },
     't': {
         'units': 's'
-    }
+    },
+    'C_x': {
+        'units': '1'
+    },
+    'C_z': {
+        'units': '1'
+    },
+    'C_a': {
+        'units': '1'
+    }  
 }
 
 class ModelDriver:
@@ -69,7 +78,66 @@ class ModelDriver:
         self.base_state_arrays['theta_base'] = np.zeros(nz, dtype=dtype)
         self.base_state_arrays['PI_base'] = np.zeros(nz, dtype=dtype)
         self.base_state_arrays['rho_base'] = np.zeros(nz, dtype=dtype)
+        self.diagnostic_arrays['C_x'] = []
+        self.diagnostic_arrays['C_z'] = []
+        self.diagnostic_arrays['C_a'] = []   # will store np.nan if no c_s_sqr
         ## Todo do we need others??
+    def compute_cfl(self, use_fast_dt=True):
+        u_face = self.prognostic_arrays['u'][1]   # (nz, nx+1)
+        w_face = self.prognostic_arrays['w'][1]   # (nz+1, nx)
+    
+        # If fields are already all-bad, bail
+        if not np.isfinite(u_face).any() or not np.isfinite(w_face).any():
+            return {'C_x': np.nan, 'C_z': np.nan, 'C_a': np.nan}
+    
+        # Advective CFLs (ignore NaNs)
+        umax = np.nanmax(np.abs(u_face))
+        wmax = np.nanmax(np.abs(w_face))
+        C_x  = float(umax * self.dt / self.dx) if np.isfinite(umax) else np.nan
+        C_z  = float(wmax * self.dt / self.dz) if np.isfinite(wmax) else np.nan
+    
+        # Acoustic CFL
+        if 'c_s_sqr' in self.params:
+            u_l, u_r = u_face[:, :-1], u_face[:, 1:]
+            w_b, w_t = w_face[:-1, :], w_face[1:, :]
+    
+            mask_u = np.isfinite(u_l) & np.isfinite(u_r)
+            mask_w = np.isfinite(w_b) & np.isfinite(w_t)
+    
+            # use out= and where= to avoid “invalid value encountered in add”
+            u_c = np.full_like(u_l, np.nan, dtype=np.float64)
+            w_c = np.full_like(w_b, np.nan, dtype=np.float64)
+            np.add(u_l, u_r, out=u_c, where=mask_u)
+            np.add(w_b, w_t, out=w_c, where=mask_w)
+            u_c *= 0.5; w_c *= 0.5
+    
+            # only evaluate hypot where both u_c and w_c are finite
+            valid = np.isfinite(u_c) | np.isfinite(w_c)
+            if not valid.any():
+                C_a = np.nan
+            else:
+                # build a temporary array only for valid entries (no all-NaN warnings)
+                uv = np.hypot(np.where(valid, u_c, 0.0), np.where(valid, w_c, 0.0))
+                uv_max = float(uv[valid].max()) if valid.any() else np.nan
+                if np.isfinite(uv_max):
+                    c_s  = float(np.sqrt(self.params['c_s_sqr']))
+                    dt_a = float(self.params.get('dt_acoustic', self.dt)) if use_fast_dt else self.dt
+                    C_a  = (uv_max + c_s) * dt_a / min(self.dx, self.dz)
+                else:
+                    C_a = np.nan
+        else:
+            C_a = np.nan
+    
+        return {'C_x': C_x, 'C_z': C_z, 'C_a': C_a}
+
+    
+    def _log_cfl(self):
+        # Append current CFL numbers to history (one value per model step).
+        cfl = self.compute_cfl()
+        self.diagnostic_arrays['C_x'].append(cfl['C_x'])
+        self.diagnostic_arrays['C_z'].append(cfl['C_z'])
+        self.diagnostic_arrays['C_a'].append(cfl['C_a'])
+
 
     def initialize_isentropic_base_state(self, theta, pressure_surface):
         # Set uniform potential temperature
@@ -88,13 +156,13 @@ class ModelDriver:
             self.base_state_arrays['PI_base']
         )
 
-    def initialize_warm_bubble(self, amplitude, x_radius, z_radius, z_center):
+    def initialize_warm_bubble(self, amplitude, x_radius, z_radius, x_center, z_center):
         if np.min(self.base_state_arrays['theta_base']) <= 0.:
             raise ValueError("Base state theta must be initialized as positive definite")
 
         # Create thermal bubble (2D)
         theta_p, pi = create_thermal_bubble(
-            amplitude, self.coords['x'], self.coords['z'], x_radius, z_radius, 0.0, z_center, 
+            amplitude, self.coords['x'], self.coords['z'], x_radius, z_radius, x_center, z_center, 
             self.base_state_arrays['theta_base']
         )
         # Ensure boundary conditions, and add time stacking (future, current, past)
@@ -154,6 +222,7 @@ class ModelDriver:
         )
 
         self.prep_new_timestep()
+        self._log_cfl() 
 
     def take_single_timestep(self):
         # Check if initialized
@@ -194,13 +263,14 @@ class ModelDriver:
         )
 
         self.prep_new_timestep()
+        self._log_cfl() 
 
     def integrate(self, n_steps):
         for _ in range(n_steps):
             self.take_single_timestep()
 
     def current_state(self):
-        """Export the prognostic variables, with coordinates, at current time."""
+        # Export the prognostic variables, with coordinates, at current time.
         data_vars = {}
         for var in self.active_prognostic_variables:
             if var == 'u':
@@ -215,4 +285,16 @@ class ModelDriver:
         data_vars['z'] = xr.Variable('z', self.coords['z'], metadata_attrs['z'])
         data_vars['z_stag'] = xr.Variable('z_stag', self.coords['z_stag'], metadata_attrs['z_stag'])
         data_vars['t'] = xr.Variable('t', [self.t_count * self.dt], metadata_attrs['t'])
+
+        if len(self.diagnostic_arrays.get('C_x', [])) == 0:
+            cfl_now = self.compute_cfl()
+            Cx, Cz, Ca = cfl_now['C_x'], cfl_now['C_z'], cfl_now['C_a']
+        else:
+            Cx = self.diagnostic_arrays['C_x'][-1]
+            Cz = self.diagnostic_arrays['C_z'][-1]
+            Ca = self.diagnostic_arrays['C_a'][-1]
+    
+        data_vars['C_x'] = xr.Variable('t', [Cx], metadata_attrs['C_x'])
+        data_vars['C_z'] = xr.Variable('t', [Cz], metadata_attrs['C_z'])
+        data_vars['C_a'] = xr.Variable('t', [Ca], metadata_attrs['C_a'])
         return xr.Dataset(data_vars)

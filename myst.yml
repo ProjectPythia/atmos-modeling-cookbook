@@ -18,31 +18,17 @@ project:
     - title: Introduction
       children:
         - file: notebooks/intro/initial_concepts.md
+        - file: notebooks/intro/matsuno-gill.ipynb
         - file: notebooks/intro/crash_course.ipynb
-    - title: Dynamical Background
+        - file: notebooks/intro/troubleshooting.ipynb
+        - file: notebooks/intro/improving_model.ipynb
+    - file: notebooks/dynamics/dynamics_overview.md
+    - file: notebooks/numerics/finite_differencing.md
+    - file: notebooks/config/init_boundary_conditions.md
+    - file: notebooks/summary/summary.md
+    - title: Appendix
       children:
-        - file: notebooks/dynamics/basic_equations.md
-        - file: notebooks/dynamics/simplification.md
-        - file: notebooks/dynamics/averaging.md
-        - file: notebooks/dynamics/linear_model.ipynb
-    - title: Methods of Solution
-      children:
-        - file: notebooks/numerics/spatial_finite_differencing.md
-        - file: notebooks/numerics/other_spatial_techniques.md
-        - file: notebooks/numerics/time_integration.ipynb
-        - file: notebooks/numerics/stability_analysis.ipynb
-        - file: notebooks/numerics/corrections_filtering.ipynb
-    - title: Coordinates and Initial/Boundary Conditions
-      children:
-        - file: notebooks/config/geospatial_coordinates.ipynb
-        - file: notebooks/config/grid_staggering.ipynb
-        - file: notebooks/config/vertical_coordinates.ipynb
-        - file: notebooks/config/initial_conditions
-        - file: notebooks/config/boundary_conditions.ipynb
-    - title: Bringing It All Together
-      children:
-        - file: notebooks/summary/comparison.ipynb
-        - file: notebooks/summary/assessment.md
+        - file: notebooks/appendix/finite_differencing.md
   jupyter:
       binder:
         repo: projectpythia/atmos-modeling-cookbook

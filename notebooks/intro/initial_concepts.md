@@ -1,3 +1,3 @@
-# Intial Concepts
+# Initial Concepts
 
 ...

@@ -11,4 +11,5 @@ dependencies:
   - numba
   - cmweather
   - holoviews
+  - hvplot
   - panel

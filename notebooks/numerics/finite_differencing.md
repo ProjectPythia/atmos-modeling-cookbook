@@ -1,3 +1,5 @@
-# Finite Differencing
+# Methods of Solution
 
-...
+Now that we have an understanding of the fundamental sets of differential equations that we will use (prognostic and diagnostic), we will focus on the methods used to solve them numerically. This is typically approached through the lens of *discretization*—turning the *continuous* equations into *discrete* forms. In space, we will be focusing on finite differences upon grids, though there will be brief discussions of other techniques such as spectral and finite element methods. Then, we will discuss time integration techniques, with a focus on the simplest forms such as Euler forward and Leapfrog in our full model, though more sophisticated forms of both explicit and implicit schemes will be discussed and demonstrated with simplified example problems. However, just because a discretized form can be written from a set of equations does not mean it will be well-behaved numerically. Hence, we will also go over approaches to the stability analysis of discrete equation sets as well as methods of numerical correction and filtering. While these sections of the cookbook are not yet available in its current version, we suggest exploring the following resources if you wish to learn more about these topics in the meantime:
+
+- Chapter 10 of {cite:t}`Pielke02`

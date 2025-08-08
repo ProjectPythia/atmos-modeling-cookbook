@@ -18,7 +18,7 @@ This Project Pythia Cookbook covers the fundamentals of atmospheric modeling, in
 
 ## Motivation
 
-Numerical models are widely used, but gaining expertise in how they work has often been unnecessarily challenging. This cookbook hopes to address that! This is intended for a somewhat broad audience: those with at least some atmospheric dynamics knowledge, but nearly any level of programming experience (assuming a baseline level as covered in the [Pythia Foundations](https://foundations.projectpythia.org/landing-page.html)).
+Numerical models are widely used, but gaining expertise in how they work has often been unnecessarily challenging. This cookbook hopes to address that! This is intended for a somewhat broad audience: those with at least some atmospheric dynamics knowledge, but nearly any level of programming experience (assuming a baseline level as covered in the [Pythia Foundations](https://foundations.projectpythia.org/landing-page)).
 
 ## Authors
 - [JT Thielen](https://github.com/jthielen)
@@ -88,7 +88,7 @@ and even change the example programs. You’ll see that the code cells
 have no output at first, until you execute them by pressing
 {kbd}`Shift`\+{kbd}`Enter`. Complete details on how to interact with
 a live Jupyter notebook are described in [Getting Started with
-Jupyter](https://foundations.projectpythia.org/foundations/getting-started-jupyter.html).
+Jupyter](https://foundations.projectpythia.org/foundations/getting-started-jupyter).
 
 ### Running on Your Own Machine
 

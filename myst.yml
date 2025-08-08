@@ -29,6 +29,7 @@ project:
     - title: Appendix
       children:
         - file: notebooks/appendix/finite_differencing.md
+        - file: notebooks/appendix/time_stepping.md
   jupyter:
       binder:
         repo: projectpythia/atmos-modeling-cookbook

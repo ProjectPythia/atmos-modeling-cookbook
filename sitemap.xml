@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:3000/sitemap_style.xsl" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:3000</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/how-to-cite</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/intro/initial-concepts</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/intro/matsuno-gill</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/intro/crash-course</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/intro/troubleshooting</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/intro/improving-model</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/dynamics/dynamics-overview</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/numerics/finite-differencing</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/config/init-boundary-conditions</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/summary/summary</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/appendix/finite-differencing</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/appendix/time-stepping</loc>
+  </url>
+</urlset>
